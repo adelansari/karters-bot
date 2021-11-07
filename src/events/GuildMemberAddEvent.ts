@@ -1,50 +1,17 @@
 // https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMemberAdd
-import { GuildMember, MessageEmbed } from 'discord.js';
+import { GuildMember, Message } from 'discord.js';
 import BaseEvent from '../utils/structures/BaseEvent';
 import DiscordClient from '../client/client';
-
-import { Message } from 'discord.js';
-import { MessageAttachment } from 'discord.js';
-import { Captcha } from 'captcha-canvas';  // importing captcha from npm module
+import { channel } from 'diagnostics_channel';
 
 export default class GuildMemberAddEvent extends BaseEvent {
   constructor() {
     super('guildMemberAdd');
   }
 
+
   async run(client: DiscordClient, member: GuildMember) {
-
-    const captcha = new Captcha(); //create a captcha canvas of 100x300.
-    captcha.async = true //Sync
-    captcha.addDecoy(); //Add decoy text on captcha canvas.
-    captcha.drawTrace(); //draw trace lines on captcha canvas.
-    captcha.drawCaptcha(); //draw captcha text on captcha canvas.
-
-    const captchaAttachment = new MessageAttachment(await captcha.png, 'captcha.png');
-
-    const captchaEmbed = new MessageEmbed()
-      .setDescription('Please complete this captcha:')
-      .setImage('attachment://captcha.png');
-
-    const msg = await member.send({ files: [captchaAttachment], embeds: [captchaEmbed] });
-
-    const filter = (message) => {
-      if (message.author.id !== member.id) return;
-      if (message.content == captcha.text) return true;
-      else member.send("Wrong captcha");
-    };
-
-    try {
-      const response = await msg.channel.awaitMessages({ filter, max: 1, time: 600000, errors: ["time"] })  // time in ms
-      if(response) {
-        // whenever verified
-        member.roles.add('906790468023627788');  // racer role id
-        member.send('You have been verified.')
-      }
-    } catch (err) {
-      // no time and not verified
-      await member.send('You have not verified.')
-    }
-  
+    console.log(`${member.user.tag} joined to ${member.guild.name}.`);
+       
   }
 }

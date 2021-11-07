@@ -1,11 +1,14 @@
 import { Message } from 'discord.js';
 import { MessageAttachment } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import BaseCommand from '../../utils/structures/BaseCommand';
 import DiscordClient from '../../client/client';
+
 
 import { Captcha } from 'captcha-canvas';  // importing captcha from npm module
 import { MembershipStates } from 'discord.js/typings/enums';
 import GuildMemberAddEvent from '../../events/GuildMemberAddEvent';
+
 
 
 export default class CaptchaCommand extends BaseCommand {
@@ -23,6 +26,22 @@ export default class CaptchaCommand extends BaseCommand {
 
     const captchaAttachment = new MessageAttachment( await captcha.png,'captcha.png' );
 
-    message.channel.send({ files: [captchaAttachment], content: `Code: ${captcha.text}` });
+    const captchaEmbed = new MessageEmbed()
+      .setDescription('Please complete this captcha:')
+      .setImage('attachment://captcha.png');
+
+    const msg = await message.channel.send({ files: [captchaAttachment], embeds: [captchaEmbed] });
+
+    // const filter = (message) => {
+    //   if (message.author.id !== member.id) return;
+    //   if (message.content == captcha.text) return true;
+    //   else member.send("Wrong captcha");
+    // };
+
+    
+
+
+    // message.channel.send({ files: [captchaAttachment], content: `Code: ${captcha.text}` });
+
   }
 }
