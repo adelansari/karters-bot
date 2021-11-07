@@ -12,3 +12,5 @@ karters bot
 Run `npm install` after cloning repo.
 `npm run start` starts the bot
 
+To run the bot, type `npm run dev` or `yarn dev`.
+

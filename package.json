@@ -1,30 +1,19 @@
 {
-  "name": "karters-bot",
+  "name": "karterbot",
   "version": "1.0.0",
-  "description": "TheKarters discord bot",
-  "type": "module",
-  "main": "src/karters_bot.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm update",
-    "poststart": "ts-node-dev --respawn --transpile-only --poll ./src/karters_bot.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adelansari/karters-bot.git"
-  },
-  "author": "DarkSlayer, ProBoz",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adelansari/karters-bot/issues"
-  },
-  "homepage": "https://github.com/adelansari/karters-bot#readme",
-  "devDependencies": {
-    "ts-node": "^10.4.0",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.4.4"
-  },
+  "main": "index.js",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^13.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "nodemon": "^2.0.14",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "dev": "nodemon ./src/index.ts",
+    "start": "node ./build/index.js",
+    "build": "tsc"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "name": "karterbot",
+  "language": "typescript",
+  "manager": "yarn",
+  "prefix": "."
+}
