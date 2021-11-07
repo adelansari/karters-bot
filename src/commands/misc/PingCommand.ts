@@ -8,6 +8,6 @@ export default class PingCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    message.channel.send('ping command works');
+    message.channel.send(`${client.ws.ping} ping!`);
   }
 }
