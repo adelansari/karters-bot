@@ -24,21 +24,13 @@ export default class CaptchaCommand extends BaseCommand {
     captcha.drawTrace(); //draw trace lines on captcha canvas.
     captcha.drawCaptcha(); //draw captcha text on captcha canvas.
 
-    const captchaAttachment = new MessageAttachment( await captcha.png,'captcha.png' );
+    const captchaAttachment = new MessageAttachment(await captcha.png, 'captcha.png');
 
     const captchaEmbed = new MessageEmbed()
       .setDescription('Please complete this captcha:')
       .setImage('attachment://captcha.png');
 
     const msg = await message.channel.send({ files: [captchaAttachment], embeds: [captchaEmbed] });
-
-    // const filter = (message) => {
-    //   if (message.author.id !== member.id) return;
-    //   if (message.content == captcha.text) return true;
-    //   else member.send("Wrong captcha");
-    // };
-
-    
 
 
     // message.channel.send({ files: [captchaAttachment], content: `Code: ${captcha.text}` });
