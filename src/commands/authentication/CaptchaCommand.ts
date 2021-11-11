@@ -26,7 +26,9 @@ export default class CaptchaCommand extends BaseCommand {
     );
 
     const captchaEmbed = new MessageEmbed()
-      .setDescription("Please complete this captcha:")
+      .setDescription(
+        'Please complete this captcha to get a "**verified**" role:'
+      )
       .setImage("attachment://captcha.png");
 
     const msg = await message.channel.send({

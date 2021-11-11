@@ -33,20 +33,23 @@ export default class GuildMemberAddEvent extends BaseEvent {
 
     const captchaEmbed = new MessageEmbed()
       .setDescription(
-        'Please complete this captcha to get a "**verified**" role:'
+        'Please complete this captcha to get "**verified**"'
       )
       .setImage("attachment://captcha.png");
 
-    // // To send the captcha message to 'verfy' channel
-    // const channelId = "906924913984671784";   // verify channel id
-    // const verifychannel = client.channels.cache.get(channelId) as TextChannel  // Finding the "verify" channel
-    // verifychannel.send(`Hi ${member.user}`)
-    // const msg = await verifychannel.send({ files: [captchaAttachment], embeds: [captchaEmbed] });
-
-    const msg = await member.send({
+    // To send the captcha message to 'verify' channel
+    const channelId = "906924913984671784"; // verify channel id
+    const verifychannel = client.channels.cache.get(channelId) as TextChannel; // Finding the "verify" channel
+    verifychannel.send(`Hi ${member.user}`);
+    const msg = await verifychannel.send({
       files: [captchaAttachment],
       embeds: [captchaEmbed],
     });
+
+    // const msg = await member.send({
+    //   files: [captchaAttachment],
+    //   embeds: [captchaEmbed],
+    // });
 
     const filter = (message: { author: { id: string }; content: string }) => {
       if (message.author.id !== member.id) {
@@ -56,9 +59,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
         console.log(message.content);
         return true;
       } else {
-        member.send(
-          'Wrong captcha! Please try again using "**.verify**" command'
-        );
+        member.send("Wrong captcha! Please try again.");
         return false;
       }
     };
@@ -67,7 +68,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
       const response = await msg.channel.awaitMessages({
         filter,
         max: 1, // Number of messages to successfully pass the filter
-        time: 20000, // time in milliseconds
+        time: 900000, // 15 min timeout
         errors: ["time"],
       });
       if (response) {
@@ -77,9 +78,11 @@ export default class GuildMemberAddEvent extends BaseEvent {
       }
     } catch (err) {
       // no time and not verified
-      await member.send("You have not verified.");
+      await member.send("You have not verified and were kicked from the server.");
+      member.kick('Member failed to answer captcha in 15 min.')
+
       // await member.send(JSON.stringify(err))
-      console.log(err);
+      // console.log(err);
     }
   }
 }
