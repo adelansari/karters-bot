@@ -11,6 +11,8 @@ karters bot
 
 - Note: slappey may need to be installed globally for whoever generates the commands. `npm install -g slappey`
 
+- Note: Run this project with `npx nodemon ./src/index.ts` during development.
+
 # project notes
 
 Run `npm install` after cloning repo.

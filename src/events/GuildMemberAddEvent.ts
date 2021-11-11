@@ -49,7 +49,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
     });
 
     /**
-     * Todo: unable to understand what's happening with a type type casting in this section
+     * The following sectio always lead to  Collection(0) [Map] {} err in the console.log after 20000 ms
      **/
 
     const filter = (message: { author: { id: string }; content: string }) => {
