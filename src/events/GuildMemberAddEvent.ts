@@ -58,7 +58,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
       if (message.content === captcha.text) {
         return true;
       } else {
-        member.send("Wrong captcha! Please try again.");
+        verifychannel.send("Wrong captcha! Please try again.");
         return false;
       }
     };
