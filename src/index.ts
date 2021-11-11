@@ -5,7 +5,10 @@ import botTokenJson from './botToken.json'; // keep this hidden inside src/botTo
 import DiscordClient from './client/client';
 import { Intents } from 'discord.js';
 // const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });  // Original code
-const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS] }); // Adding intent for guild and member events
+// const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS] }); // This doesn't work properly
+const client = new DiscordClient({
+  intents: 32767,
+});
 
 (async () => {
   client.prefix = config.prefix || client.prefix;

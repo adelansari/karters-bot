@@ -48,10 +48,6 @@ export default class GuildMemberAddEvent extends BaseEvent {
       embeds: [captchaEmbed],
     });
 
-    /**
-     * The following sectio always lead to  Collection(0) [Map] {} err in the console.log after 20000 ms
-     **/
-
     const filter = (message: { author: { id: string }; content: string }) => {
       if (message.author.id !== member.id) {
         return false;
