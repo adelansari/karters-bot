@@ -56,7 +56,6 @@ export default class GuildMemberAddEvent extends BaseEvent {
         return false;
       }
       if (message.content === captcha.text) {
-        console.log(message.content);
         return true;
       } else {
         member.send("Wrong captcha! Please try again.");

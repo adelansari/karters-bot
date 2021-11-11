@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { GuildMember, Message } from "discord.js";
 import { MessageAttachment } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
@@ -36,12 +36,39 @@ export default class CaptchaCommand extends BaseCommand {
       embeds: [captchaEmbed],
     });
 
-    // const filter = (message: { author: { id: string }; content: string }) => {
-    //   if (message.author.id !== member.id) return;
-    //   if (message.content === captcha.text) return true;
-    //   else member.send("Wrong captcha!");
-    // };
+    // const { author } = message; // deconstructing the initial message with captcha command and saving the author object.
 
-    // message.channel.send({ files: [captchaAttachment], content: `Code: ${captcha.text}` });
+    let member = message.member as GuildMember;
+
+    const filter = (message: { author: { id: string }; content: string }) => {
+      if (message.author.id !== member.id) {
+        return false;
+      }
+      if (message.content === captcha.text) {
+        return true;
+      } else {
+        member.send("Wrong captcha! Please try again.");
+        return false;
+      }
+    };
+
+    try {
+      const response = await msg.channel.awaitMessages({
+        filter,
+        max: 1, // Number of messages to successfully pass the filter
+        time: 900000, // 15 min timeout
+        errors: ["time"],
+      });
+      if (response) {
+        // when verified
+        await member.roles.add("906790468023627788");
+        await member.send("You have been verified");
+      }
+    } catch (err) {
+      // no time and not verified
+      await member.send(
+        "You have not verified and were kicked from the server."
+      );
+    }
   }
 }
