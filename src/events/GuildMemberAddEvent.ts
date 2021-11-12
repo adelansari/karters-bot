@@ -32,9 +32,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
     );
 
     const captchaEmbed = new MessageEmbed()
-      .setDescription(
-        'Please complete this captcha to get "**verified**"'
-      )
+      .setDescription('Please complete this captcha to get "**verified**"')
       .setImage("attachment://captcha.png");
 
     // To send the captcha message to 'verify' channel
@@ -73,12 +71,14 @@ export default class GuildMemberAddEvent extends BaseEvent {
       if (response) {
         // when verified
         await member.roles.add("906790468023627788");
-        await member.send("You have been verified");
+        await member.send("You have been verified!");
       }
     } catch (err) {
       // no time and not verified
-      await member.send("You have not verified and were kicked from the server.");
-      member.kick('Member failed to answer captcha in 15 min.')
+      await member.send(
+        'You have failed to complete the captcha on time. Please try again using ".verify" command.'
+      );
+      // member.kick('Member failed to answer captcha in 15 min.')
 
       // await member.send(JSON.stringify(err))
       // console.log(err);
