@@ -67,7 +67,7 @@ export default class CaptchaCommand extends BaseCommand {
     } catch (err) {
       // no time and not verified
       await member.send(
-        "You have not verified and were kicked from the server."
+        'You have failed to complete the captcha on time. Please try again using ".verify" command.'
       );
     }
   }
