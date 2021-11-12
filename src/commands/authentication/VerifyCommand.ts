@@ -8,9 +8,9 @@ import { Captcha } from "captcha-canvas"; // importing captcha from npm module
 import { MembershipStates } from "discord.js/typings/enums";
 import GuildMemberAddEvent from "../../events/GuildMemberAddEvent";
 
-export default class CaptchaCommand extends BaseCommand {
+export default class VerifyCommand extends BaseCommand {
   constructor() {
-    super("captcha", "authentication", []);
+    super('verify', 'authentication', []);
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
