@@ -36,15 +36,16 @@ export default class GuildMemberAddEvent extends BaseEvent {
       .setDescription('Please complete this captcha to get "**verified**"')
       .setImage("attachment://captcha.png");
 
-
     // To send the captcha message to 'verify' channel
 
     // const channelId = "906924913984671784"; // verify channel id
     // const verifychannel = client.channels.cache.get(channelId) as TextChannel; // Finding the "verify" channel
 
-    const guildObject = member.guild as Guild;  // Finding the member guild
-    const verifychannel:any = guildObject.channels.cache.find((channel: { name: string; }) => channel.name === "verify")  // Finding the 'verify' by name
-    
+    const guildObject = member.guild as Guild; // Finding the member guild
+    const verifychannel: any = guildObject.channels.cache.find(
+      (channel: { name: string }) => channel.name === "verify"
+    ); // Finding the 'verify' by name
+
     verifychannel.send(`Hi ${member.user}`);
     const msg = await verifychannel.send({
       files: [captchaAttachment],

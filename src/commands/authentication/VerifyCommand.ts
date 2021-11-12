@@ -10,7 +10,7 @@ import GuildMemberAddEvent from "../../events/GuildMemberAddEvent";
 
 export default class VerifyCommand extends BaseCommand {
   constructor() {
-    super('verify', 'authentication', []);
+    super("verify", "authentication", []);
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
@@ -61,9 +61,11 @@ export default class VerifyCommand extends BaseCommand {
       });
       if (response) {
         // when verified
-        const guildObject = member.guild as Guild;  // Finding the member guild
-        const memberrole:any =  guildObject.roles.cache.find((role: { name: string; }) => role.name === "racer"); // Searching for the role 'racer' in the guild
-        await member.roles.add(memberrole.id);  // adding the role 'racer' to the member
+        const guildObject = member.guild as Guild; // Finding the member guild
+        const memberrole: any = guildObject.roles.cache.find(
+          (role: { name: string }) => role.name === "racer"
+        ); // Searching for the role 'racer' in the guild
+        await member.roles.add(memberrole.id); // adding the role 'racer' to the member
         // await member.roles.add("906790468023627788");  // role 'racer' based on id
         await member.send("You have been verified");
       }
