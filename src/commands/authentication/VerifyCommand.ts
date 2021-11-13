@@ -62,7 +62,7 @@ export default class VerifyCommand extends BaseCommand {
       if (response) {
         // when verified
         const guildObject = member.guild as Guild; // Finding the member guild
-        const memberrole: any = guildObject.roles.cache.find(
+        const memberrole: any|undefined = guildObject.roles.cache.find(
           (role: { name: string }) => role.name === "racer"
         ); // Searching for the role 'racer' in the guild
         await member.roles.add(memberrole.id); // adding the role 'racer' to the member

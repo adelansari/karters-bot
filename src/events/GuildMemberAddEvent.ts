@@ -42,7 +42,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
     // const verifychannel = client.channels.cache.get(channelId) as TextChannel; // Finding the "verify" channel
 
     const guildObject = member.guild as Guild; // Finding the member guild
-    const verifychannel: any = guildObject.channels.cache.find(
+    const verifychannel: any|undefined= guildObject.channels.cache.find(
       (channel: { name: string }) => channel.name === "verify"
     ); // Finding the 'verify' by name
 
