@@ -7,7 +7,16 @@ import * as fs from 'fs';
 /**
  * @ArtCommand - Display art related to The Karters and send
  * as a message. -ProBoz
+ * 
+ * In memory of 001 Abstract Ingenuity, the i01 bot
  */
+
+import { CMDInterface } from '../..';
+
+export const commandArtString: CMDInterface = { 
+  cmdName: 'art',
+  cmdDesc: `Post some game art from our game.`,
+};
 
 export default class ArtCommand extends BaseCommand {
   constructor() {
@@ -16,40 +25,8 @@ export default class ArtCommand extends BaseCommand {
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
 
-    
-    // let artCollection: Array<string|Buffer> = [
-    //     'Captains_Cove.jpg',
-    //     'Jungle_Rumble.jpg',
-    //     'Molten_Mile.jpg',
-    // ];
-    // console.log(`Art collection Array: `); //see the total files
-    // console.log(artCollection); //see the total files
-
-
-    /**
-    //The logic in here needs to translate a Buffer (file name) into a string
-    //right now it's "undefined" file names
-    let artCollection: Array<string> = []; //use fs to push all art paths
-    //from misc/assets/images
-
-    fs.readdir(`${__dirname}/assets/images`, { withFileTypes: false }, (err, files) => {
-
-        if (err) { console.log(err) } else {
-
-            files.forEach(file => {
-                //let fileName = file.toString();
-                //console.log(`File name: ${fileName}, file type: ${fileName.valueOf()}`); //file name debug
-                artCollection.push(`${file}`);
-            });
-
-        };
-        console.log(`Art collection Array: `); //see the total files
-        console.log(artCollection); //see the total files
-    });
-    */
-
-
-    const imageDir:string = path.join(__dirname,'./assets/images/')  // saving the image path and correcting it
+    const artFilePath = "/assets/gameArt/" as string; //update this string if file path changes
+    const imageDir:string = path.join(__dirname, `.${artFilePath}`)  // saving the gameArt path and correcting it
     const artCollection = fs.readdirSync(imageDir); // reading the "images" folder and saving the file names in an array.
 
     let previousArt: Array<string> = []; //store previous shown art here
@@ -79,11 +56,10 @@ export default class ArtCommand extends BaseCommand {
     decision = Number(selectorString) as number;
     console.log(`The decision: ${decision}`); //debug decision number
 
-    console.log(artCollection[decision])
-    //message.channel.send({ files: [`${__dirname}/assets/images/${artCollection[decision]}`] }); //crashes the bot don't uncomment yet
+    console.log(artCollection[decision]);
 
     message.channel.send(`${artCollection[decision]} art!`); //art dir test
-    message.channel.send({ files: [`${__dirname}/assets/images/${artCollection[decision]}`] }); //crashes the bot don't uncomment yet
+    message.channel.send({ files: [`${__dirname}${artFilePath}${artCollection[decision]}`] });
 
   };
 };

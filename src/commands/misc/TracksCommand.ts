@@ -5,24 +5,22 @@ import * as path from "path";
 import * as fs from "fs";
 // import { promisify } from "util";
 
+import { CMDInterface } from "../..";
+
+export const commandTrackString: CMDInterface = {
+  cmdName: 'tracks',
+  cmdDesc: `Post some track art from our game.`,
+};
+
 export default class TracksCommand extends BaseCommand {
   constructor() {
     super("tracks", "misc", []);
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    const imageDir: string = path.join(__dirname, "./assets/images/"); // saving the image path and correcting it
-    // let artCollection: Array<string> = [];
-    // fs.readdir('./src/commands/misc/assets/images',(err, data) => {
-    //   if (err) { console.log(err) } else {
-    //     for (let i = 0; i < data.length; i++) {
-    //       artCollection.push(data[i]);
-    //       console.log('Output 1: ', artCollection)
-    //     }
-    //     console.log('Output 2: ', artCollection)
-    //   }
-    // })
-    // console.log('Output 3: ', artCollection)
+
+    const trackFilePath = "/assets/tracks/" as string; //update this string if file path changes
+    const imageDir: string = path.join(__dirname, `.${trackFilePath}`); // saving the tracks path and correcting it
 
     // reading the "images" folder and saving the file names in an array.
     const artList = fs.readdirSync(imageDir);
@@ -53,7 +51,7 @@ export default class TracksCommand extends BaseCommand {
       decision = Number(selectorString) as number;
       message.channel.send(`${artCollection[decision]} track!`); //art dir test
       message.channel.send({
-        files: [`${__dirname}/assets/images/${artCollection[decision]}`],
+        files: [`${__dirname}${trackFilePath}${artCollection[decision]}`],
       });
     } else if (args[0].toLowerCase() === "list") {
       for (let i = 0; i < artCollection.length; i++) {
@@ -65,16 +63,8 @@ export default class TracksCommand extends BaseCommand {
       decision = Number(args) as number;
       message.channel.send(`${artCollection[decision]} track!`); //art dir test
       message.channel.send({
-        files: [`${__dirname}/assets/images/${artCollection[decision]}`],
+        files: [`${__dirname}${trackFilePath}${artCollection[decision]}`],
       });
     }
-
-    //message.channel.send({ files: [`${__dirname}/assets/images/${artCollection[decision]}`] }); //crashes the bot don't uncomment yet
-
-    // const files = fs.readdir(imageDir,(err, files) => {
-    //   console.log(files)
-    // })
-
-    // const files: Promise<string[]> = promisify(fs.readdir)(imageDir, { encoding: "utf-8" });
   }
 }

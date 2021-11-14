@@ -8,6 +8,13 @@ import { Captcha } from "captcha-canvas"; // importing captcha from npm module
 import { MembershipStates } from "discord.js/typings/enums";
 import GuildMemberAddEvent from "../../events/GuildMemberAddEvent";
 
+import { CMDInterface } from "../..";
+
+export const verifyString: CMDInterface = {
+  cmdName: 'verify',
+  cmdDesc: `Verify yourself to be human and enter our Discord server`,
+};
+
 export default class VerifyCommand extends BaseCommand {
   constructor() {
     super("verify", "authentication", []);

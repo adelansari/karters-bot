@@ -17,3 +17,8 @@ const client = new DiscordClient({
   await client.login(botTokenJson.token);
 })();
 
+export interface CMDInterface {
+  //interface for help command
+  cmdName: string,
+  cmdDesc: string,
+};
