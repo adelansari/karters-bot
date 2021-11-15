@@ -8,17 +8,16 @@ import * as fs from "fs";
 import { CMDInterface } from "../..";
 
 export const commandTrackString: CMDInterface = {
-  cmdName: 'tracks',
+  cmdName: "tracks",
   cmdDesc: `Post some track art from our game.`,
 };
 
 export default class TracksCommand extends BaseCommand {
   constructor() {
-    super("tracks", "misc", []);
+    super("tracks", "misc", ["track"]);
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-
     const trackFilePath = "/assets/tracks/" as string; //update this string if file path changes
     const imageDir: string = path.join(__dirname, `.${trackFilePath}`); // saving the tracks path and correcting it
 
@@ -55,16 +54,27 @@ export default class TracksCommand extends BaseCommand {
       });
     } else if (args[0].toLowerCase() === "list") {
       for (let i = 0; i < artCollection.length; i++) {
-        artCollection[i] = artCollection[i].replace(/_|.jpg/g, ' '); // removing '_' and 
-        artCollection[i] = artCollection[i].charAt(0).toUpperCase() + artCollection[i].substring(1);
+        artCollection[i] = artCollection[i].replace(/_|.jpg/g, " "); // removing '_' and
+        artCollection[i] =
+          artCollection[i].charAt(0).toUpperCase() +
+          artCollection[i].substring(1);
       }
-      message.channel.send(artCollection.map((i) => `${artCollection.indexOf(i)+1}. ${i}`).join("\n"));
+      message.channel.send(
+        artCollection
+          .map((i) => `${artCollection.indexOf(i) + 1}. ${i}`)
+          .join("\n")
+      );
     } else {
       decision = Number(args) as number;
-      message.channel.send(`${artCollection[decision]} track!`); //art dir test
-      message.channel.send({
-        files: [`${__dirname}${trackFilePath}${artCollection[decision]}`],
-      });
+      decision = decision - 1; // correction to the track refrencing
+      if (artCollection[decision] !== undefined) {
+        message.channel.send(`${artCollection[decision]} track!`); //art dir test
+        message.channel.send({
+          files: [`${__dirname}${trackFilePath}${artCollection[decision]}`],
+        });
+      } else {
+        message.channel.send(`Track ${args} does not exist in the list!`); // in case there is an error
+      }
     }
   }
 }
