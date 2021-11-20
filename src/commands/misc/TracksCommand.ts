@@ -14,7 +14,7 @@ export const commandTrackString: CMDInterface = {
 
 export default class TracksCommand extends BaseCommand {
   constructor() {
-    super("tracks", "misc", ["track"], "Show a list of all tracks");
+    super("tracks", "misc", ["track"], "Show a list of all tracks.");
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
@@ -23,7 +23,8 @@ export default class TracksCommand extends BaseCommand {
 
     // reading the "images" folder and saving the file names in an array.
     const artList = fs.readdirSync(imageDir);
-    const artCollection = artList.filter((file) => file.endsWith(".jpg")); // filtering by .jpg
+    // const artCollection = artList.filter((file) => file.endsWith(".jpg")); // filtering by .jpg
+    const artCollection = artList;
     console.log(artCollection);
     console.log(args);
 
@@ -54,7 +55,7 @@ export default class TracksCommand extends BaseCommand {
       });
     } else if (args[0].toLowerCase() === "list") {
       for (let i = 0; i < artCollection.length; i++) {
-        artCollection[i] = artCollection[i].replace(/_|.jpg/g, " "); // removing '_' and
+        artCollection[i] = artCollection[i].replace(/_|.jpg|.png/g, " "); // removing '_' and
         artCollection[i] =
           artCollection[i].charAt(0).toUpperCase() +
           artCollection[i].substring(1);
