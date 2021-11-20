@@ -22,6 +22,7 @@ export default class HelpCommand extends BaseCommand {
       const botCommands = commandsArray
         .filter((command, index, a) => a.indexOf(command) === index)  // Filtering out duplicate commands (caused by adding aliases)
         .filter((command) => command.name !== "help") // Filtering out the help command + its description
+        .filter((command) => command.name !== "characters") // Filtering out characters/skins because it is unfinished
         .sort((a, b) => a.name.localeCompare(b.name));  // Alphabetically sorting the commands
 
       botCommands.forEach((command) => {
