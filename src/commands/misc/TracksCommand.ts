@@ -14,7 +14,7 @@ export const commandTrackString: CMDInterface = {
 
 export default class TracksCommand extends BaseCommand {
   constructor() {
-    super("tracks", "misc", ["track"]);
+    super("tracks", "misc", ["track"], "Show a list of all tracks");
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {

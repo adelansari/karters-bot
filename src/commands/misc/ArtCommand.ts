@@ -20,7 +20,7 @@ export const commandArtString: CMDInterface = {
 
 export default class ArtCommand extends BaseCommand {
   constructor() {
-    super('art', 'misc', []);
+    super('art', 'misc', [], "Random game art.");
   };
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {

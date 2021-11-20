@@ -17,7 +17,7 @@ export const verifyString: CMDInterface = {
 
 export default class VerifyCommand extends BaseCommand {
   constructor() {
-    super("verify", "authentication", ["captcha"]);
+    super("verify", "authentication", ["captcha"], "Verifying members with captcha."); // command, category, aliases, description
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {

@@ -4,7 +4,7 @@ import DiscordClient from '../../client/client';
 
 export default class TestCommand extends BaseCommand {
   constructor() {
-    super('test', 'testing', []);
+    super('test', 'testing', [],"test");
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {

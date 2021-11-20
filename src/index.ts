@@ -1,24 +1,26 @@
-
-import { registerCommands, registerEvents } from './utils/registry';
-import config from '../slappey.json';
-import botTokenJson from './botToken.json'; // keep this hidden inside src/botToken.json
-import DiscordClient from './client/client';
-import { Intents } from 'discord.js';
+import { registerCommands, registerEvents } from "./utils/registry";
+import config from "../slappey.json";
+import botTokenJson from "./botToken.json"; // keep this hidden inside src/botToken.json
+import DiscordClient from "./client/client";
+import { Intents } from "discord.js";
 // const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });  // Original code
-// const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS] }); // This doesn't work properly
+
+// The number 32767 means ALL_INTENTS. There are 15 Intents in total.
+// GUILDS, GUILD_MEMBERS, GUILD_BANS, GUILD_EMOJIS_AND_STICKERS, GUILD_INTEGRATIONS, GUILD_WEBHOOKS, GUILD_INVITES, 
+// GUILD_VOICE_STATES, GUILD_PRESENCES, GUILD_MESSAGES, GUILD_MESSAGE_REACTIONS, GUILD_MESSAGE_TYPING, DIRECT_MESSAGES, DIRECT_MESSAGE_REACTIONS, DIRECT_MESSAGE_TYPING
 const client = new DiscordClient({
   intents: 32767,
 });
 
 (async () => {
   client.prefix = config.prefix || client.prefix;
-  await registerCommands(client, '../commands');
-  await registerEvents(client, '../events');
+  await registerCommands(client, "../commands");
+  await registerEvents(client, "../events");
   await client.login(botTokenJson.token);
 })();
 
 export interface CMDInterface {
   //interface for help command
-  cmdName: string,
-  cmdDesc: string,
-};
+  cmdName: string;
+  cmdDesc: string;
+}
