@@ -1,79 +1,106 @@
-import { Message } from 'discord.js';
-import BaseCommand from '../../utils/structures/BaseCommand';
-import DiscordClient from '../../client/client';
+import { Message, MessageEmbed } from "discord.js";
+import BaseCommand from "../../utils/structures/BaseCommand";
+import DiscordClient from "../../client/client";
 import * as path from "path";
 import * as fs from "fs";
 
+
+
+
 export default class CharactersCommand extends BaseCommand {
   constructor() {
-    super('characters', 'misc', ["skins"], "Showcasing game characters and their skins.");
+    super(
+      "characters",
+      "misc",
+      ["skins"],
+      "Showcasing game characters and their skins."
+    );
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
     const charactersFilePath = "/assets/skins/" as string; //update this string if file path changes
     const imageDir: string = path.join(__dirname, `.${charactersFilePath}`); // saving the skins path and correcting it
 
-    const skinList = fs.readdirSync(imageDir); // Character list extracted from file names.
+    const characterList = fs.readdirSync(imageDir); // Character list extracted from file names.
 
     // Saving every individual path for characters in an Array string.
     let skinFilePath = [] as Array<string>;
-    for (let i = 0; i < skinList.length; i++) {
-      skinFilePath[i] = path.join(__dirname, `.${charactersFilePath}/${skinList[i]}/`);
+    let skinsList = [] as Array<string[]>;
+    for (let i = 0; i < characterList.length; i++) {
+      skinFilePath[i] = path.join(
+        __dirname,
+        `.${charactersFilePath}/${characterList[i]}/`
+      );
+      skinsList[i] = fs.readdirSync(skinFilePath[i]);
     }
 
+    // Combining array of multiple arrays into one string array.
+    let skinListConcat: Array<string> = Array.prototype.concat(...skinsList);
 
+    // Returning a random integer from 0 to skinsList.length
+    const randomSkinIndex = Math.floor(Math.random() * skinsList.length);
 
+    // Function to return a random image name from character file using index
+    function skinRandom(imgArr: string[]) {
+      return imgArr[Math.floor(Math.random() * imgArr.length)];
+    }
 
-    // const skinCollection = skinList;
+    // if user input was only .characters or .skins, it will show a list
+    if (args[0] === undefined) {
+      const skinsHelpEmbed = new MessageEmbed()
+        .setColor("#0099ff")
+        .setTitle("Characters and Skins")
+        .setDescription(
+          "The command can be used by both `.characters` or `skins`"
+        )
+        .addFields(
+          {
+            name: ".characters list",
+            value: "Shows a list of game characters.",
+          },
+          {
+            name: ".characters [NAME]",
+            value:
+              "Shows a random skin from the name character. Example: `.characters Puma`",
+          },
+          {
+            name: ".characters random",
+            value: "Shows a random skin from a random game character.",
+          }
+        );
 
-    // let previousArt: Array<string> = []; //store previous shown skin here
-    // let decision = 0 as number; //the decision index
+      message.channel.send({ embeds: [skinsHelpEmbed] });
 
-    // let selector = Math.floor(Math.random() * artCollection.length) as number;
-    // let selectorString = selector.toString() as string;
-
-    // while (previousArt.includes(selectorString)) {
-    //   selector = Math.floor(Math.random() * artCollection.length);
-    // }
-
-    // if (previousArt.length > Math.floor(artCollection.length / 2)) {
-    //   previousArt.shift();
-    //   previousArt.push(selectorString);
-    // } else {
-    //   previousArt.push(selectorString);
-    // }
-
-    // console.log(`The SelectorString: ${selectorString}`); // debug selector string number
-
-    // if (args[0] === undefined) {
-    //   decision = Number(selectorString) as number;
-    //   message.channel.send(`${artCollection[decision]} track!`); //art dir test
-    //   message.channel.send({
-    //     files: [`${__dirname}${trackFilePath}${artCollection[decision]}`],
-    //   });
-    // } else if (args[0].toLowerCase() === "list") {
-    //   for (let i = 0; i < artCollection.length; i++) {
-    //     artCollection[i] = artCollection[i].replace(/_|.jpg|.png/g, " "); // removing '_' and
-    //     artCollection[i] =
-    //       artCollection[i].charAt(0).toUpperCase() +
-    //       artCollection[i].substring(1);
-    //   }
-    //   message.channel.send(
-    //     artCollection
-    //       .map((i) => `${artCollection.indexOf(i) + 1}. ${i}`)
-    //       .join("\n")
-    //   );
-    // } else {
-    //   decision = Number(args) as number;
-    //   decision = decision - 1; // correction to the track refrencing
-    //   if (artCollection[decision] !== undefined) {
-    //     message.channel.send(`${artCollection[decision]} track!`); //art dir test
-    //     message.channel.send({
-    //       files: [`${__dirname}${trackFilePath}${artCollection[decision]}`],
-    //     });
-    //   } else {
-    //     message.channel.send(`Track ${args} does not exist in the list!`); // in case there is an error
-    //   }
-    // }
+    } else if (args[0].toLowerCase() === "list") {
+      message.channel.send("List of characters:");
+      message.channel.send(
+        characterList
+          .map((i) => `${characterList.indexOf(i) + 1}. ${i}`)
+          .join("\n")
+      );
+    } else if (args[0].toLowerCase() === "random") {
+      message.channel.send({
+        files: [
+          `${skinFilePath[randomSkinIndex]}${skinRandom(
+            skinsList[randomSkinIndex]
+          )}`,
+        ],
+      });
+    } else {
+      if (characterList.indexOf(args[0]) > -1) {
+        const characterIndex = characterList.indexOf(args[0]);
+        message.channel.send({
+          files: [
+            `${skinFilePath[characterIndex]}${skinRandom(
+              skinsList[characterIndex]
+            )}`,
+          ],
+        });
+      } else {
+        message.channel.send(
+          `Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`
+        );
+      }
+    }
   }
 }

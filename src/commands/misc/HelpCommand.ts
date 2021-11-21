@@ -1,6 +1,7 @@
 import { Message, MessageEmbed, Collection } from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
+import skinsHelpEmbed from "./CharactersCommand"
 
 // //Command string imports
 // import { verifyString } from "../authentication/VerifyCommand";
@@ -16,13 +17,14 @@ export default class HelpCommand extends BaseCommand {
     if (!args[0]) {
       const helpEmbed = new MessageEmbed()
         .setColor("GREEN")
-        .setTitle("⚙ Commands");
+        .setTitle("⚙ Help Menu")
+        .setDescription('Followings are **The Karter Bot** commands. You can use ".help [command name]" to get more info (example: `.help characters`). ')
+        // .addFields({ name: '\u200B', value: '\u200B' }); // To add a blank field to the embed
 
       const commandsArray = [...client.commands.values()]; // converting commands Collection type to array
       const botCommands = commandsArray
         .filter((command, index, a) => a.indexOf(command) === index)  // Filtering out duplicate commands (caused by adding aliases)
         .filter((command) => command.name !== "help") // Filtering out the help command + its description
-        .filter((command) => command.name !== "characters") // Filtering out characters/skins because it is unfinished
         .sort((a, b) => a.name.localeCompare(b.name));  // Alphabetically sorting the commands
 
       botCommands.forEach((command) => {
@@ -37,7 +39,10 @@ export default class HelpCommand extends BaseCommand {
           .setColor("AQUA")
           .setTitle(`"${cmd.name}" description`)
           .setDescription(`**Description:** *${cmd.description}* \n **Alias:** "${cmd.aliases}"`);
+        
         message.channel.send({ embeds: [specificHelpEmbed] });
+
+        
       } else {
         message.channel.send("Oops! That command does not exist.");
       }
