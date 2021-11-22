@@ -1,1 +1,1 @@
-worker: npx nodemon ./src/index.ts
+worker: yarn install && yarn start
