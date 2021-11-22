@@ -1,1 +1,1 @@
-worker: yarn install && yarn start
+worker: yarn start
