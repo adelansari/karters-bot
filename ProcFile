@@ -1,0 +1,1 @@
+Worker: npx nodemon ./src/index.ts
