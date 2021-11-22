@@ -11,6 +11,9 @@
     "patch-package": "^6.4.7",
     "ts-node": "^10.4.0"
   },
+  "compilerOptions": {
+    "esModuleInterop": true
+  },
   "devDependencies": {
     "@types/node": "^16.11.7",
     "nodemon": "^2.0.14",
