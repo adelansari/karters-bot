@@ -1,1 +1,1 @@
-worker: npx ts-node ./src/index.ts
+worker: ts-node ./src/index.ts
