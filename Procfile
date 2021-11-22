@@ -1,1 +1,1 @@
-web: npx nodemon ./src/index.ts
+worker: npx nodemon ./src/index.ts
