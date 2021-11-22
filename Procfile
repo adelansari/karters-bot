@@ -1,1 +1,1 @@
-Worker: yarn start
+Worker: npx node ./src/index.ts
