@@ -7,3 +7,5 @@
 src/botToken.json
 .env
 .package-lock.json
+.yarn.lock
+.package-lock.json
