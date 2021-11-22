@@ -1,1 +1,1 @@
-Worker: npx node ./src/index.ts
+web: npm start
