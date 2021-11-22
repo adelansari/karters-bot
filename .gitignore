@@ -5,3 +5,4 @@
 
 #bot token
 src/botToken.json
+.env
