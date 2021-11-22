@@ -17,8 +17,7 @@
     "typescript": "^4.5.2"
   },
   "engines": {
-    "node": ">= 17.1.0",
-    "npm": ">= 8.1.3"
+    "node": ">= 16.11.9"
   },
   "compilerOptions": {
     "include": [
