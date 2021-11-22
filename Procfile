@@ -1,1 +1,1 @@
-Worker: npx nodemon ./src/index.ts
+Worker: yarn dev
