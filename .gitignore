@@ -6,3 +6,4 @@
 #bot token
 src/botToken.json
 .env
+.package-lock.json
