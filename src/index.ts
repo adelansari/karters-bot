@@ -7,8 +7,8 @@ import config from "../slappey.json";
 
 import DiscordClient from "./client/client";
 import { Intents } from "discord.js";
-import dotenv from "dotenv";
-dotenv.config()
+// import dotenv from "dotenv";
+// dotenv.config()
 
 
 // const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });  // Original code
