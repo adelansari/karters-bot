@@ -11,12 +11,12 @@ import * as fs from 'fs';
  * In memory of 001 Abstract Ingenuity, the i01 bot
  */
 
-import { CMDInterface } from '../..';
+//import { CMDInterface } from '../../index.mjs';
 
-export const commandArtString: CMDInterface = { 
-  cmdName: 'art',
-  cmdDesc: `Post some game art from our game.`,
-};
+// export const commandArtString: CMDInterface = { 
+//   cmdName: 'art',
+//   cmdDesc: `Post some game art from our game.`,
+// };
 
 export default class ArtCommand extends BaseCommand {
   constructor() {

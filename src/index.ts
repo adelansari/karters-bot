@@ -1,6 +1,10 @@
 import { registerCommands, registerEvents } from "./utils/registry";
 import config from "../slappey.json";
+/**
+ * @botTokenJson - keep this line commented out during production
+ */
 // import botTokenJson from "./botToken.json"; // keep this hidden inside src/botToken.json
+
 import DiscordClient from "./client/client";
 import { Intents } from "discord.js";
 
@@ -18,12 +22,17 @@ const client = new DiscordClient({
   client.prefix = config.prefix || client.prefix;
   await registerCommands(client, "../commands");
   await registerEvents(client, "../events");
+
+  /**
+   * Login with botTokenJson.token during development
+   * Login with process.env.TOKEN during production
+   */
   // await client.login(botTokenJson.token);
   await client.login(process.env.TOKEN);
 })();
 
-export interface CMDInterface {
-  //interface for help command
-  cmdName: string;
-  cmdDesc: string;
-}
+// export interface CMDInterface {
+//   //interface for help command
+//   cmdName: string;
+//   cmdDesc: string;
+// }
