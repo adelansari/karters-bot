@@ -22,8 +22,6 @@
     "yarn": "1.22.17"
   },
   "scripts": {
-    "dev": "nodemon --exec npx ts-node ./src/index.ts",
-    "start": "nodemon -x ts-node ./src/index.ts",
-    "build": "tsc"
+    "start": "nodemon -x ts-node ./src/index.ts"
   }
 }
