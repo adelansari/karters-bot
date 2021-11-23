@@ -30,8 +30,9 @@ const client = new DiscordClient({
    * Login with process.env.TOKEN during production
    */
   // await client.login(botTokenJson.token);
-  await client.login(process.env.TOKEN);
+  
 })();
+client.login(process.env.TOKEN);
 
 // export interface CMDInterface {
 //   //interface for help command
