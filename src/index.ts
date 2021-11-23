@@ -8,6 +8,7 @@ import config from "../slappey.json";
 import DiscordClient from "./client/client";
 import { Intents } from "discord.js";
 import dotenv from "dotenv";
+import { readConfigFile } from "typescript";
 dotenv.config()
 
 
@@ -30,9 +31,8 @@ const client = new DiscordClient({
    * Login with process.env.TOKEN during production
    */
   // await client.login(botTokenJson.token);
-  
+  await client.login(process.env.TOKEN);
 })();
-client.login(process.env.TOKEN);
 
 // export interface CMDInterface {
 //   //interface for help command
