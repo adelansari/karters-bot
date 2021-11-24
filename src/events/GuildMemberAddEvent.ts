@@ -33,7 +33,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
     );
 
     const captchaEmbed = new MessageEmbed()
-      .setDescription('Please complete this captcha to get "**verified**"')
+      .setDescription('Please complete this captcha to get a "**verified**" role:')
       .setImage("attachment://captcha.png");
 
     // To send the captcha message to 'verify' channel
@@ -78,7 +78,10 @@ export default class GuildMemberAddEvent extends BaseEvent {
       });
       if (response) {
         // when verified
-        await member.roles.add("906790468023627788");
+        const memberrole: any|undefined = guildObject.roles.cache.find(
+          (role: { name: string }) => role.name === "racer"
+        ); // Searching for the role 'racer' in the guild
+        await member.roles.add(memberrole.id); // adding the role 'racer' to the member
         await member.send("You have been verified!");
       }
     } catch (err) {
