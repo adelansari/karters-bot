@@ -3,13 +3,13 @@ import config from "../slappey.json";
 /**
  * @botTokenJson - keep this line commented out during production
  */
-// import botTokenJson from "./botToken.json"; // keep this hidden inside src/botToken.json
+import botTokenJson from "./botToken.json"; // keep this hidden inside src/botToken.json
 
 import DiscordClient from "./client/client";
 import { Intents } from "discord.js";
-import dotenv from "dotenv";
+// import dotenv from "dotenv"; //login for heroku environment
 import { readConfigFile } from "typescript";
-dotenv.config()
+// dotenv.config() //login for heroku environment
 
 
 // const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });  // Original code
@@ -30,8 +30,8 @@ const client = new DiscordClient({
    * Login with botTokenJson.token during development
    * Login with process.env.TOKEN during production
    */
-  // await client.login(botTokenJson.token);
-  await client.login(process.env.TOKEN);
+  await client.login(botTokenJson.token);
+  // await client.login(process.env.TOKEN);
 })();
 
 // export interface CMDInterface {

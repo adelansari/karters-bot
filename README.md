@@ -18,4 +18,6 @@ karters bot
 Run `npm install` after cloning repo.
 `npm run start` starts the bot
 
+Make sure you check `index.ts` file in the root of src for which method of bot token you are using to login.
+
 To run the bot, type `npm run dev` or `yarn dev`.
