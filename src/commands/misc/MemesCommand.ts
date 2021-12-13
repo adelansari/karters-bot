@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import BaseCommand from '../../utils/structures/BaseCommand';
 import DiscordClient from '../../client/client';
 import * as path from 'path';
@@ -54,8 +54,32 @@ export default class MemesCommand extends BaseCommand {
             /**
              * Update this switch so that each meme file has its own message.
              */
+            case 'luigiMansionSkate.mp4':
+                const memeEmbed01 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Luigi's Mansion skate edition`)
+                message.channel.send({ embeds: [memeEmbed01] });
+                break;
+
             case 'sonicYTP_pingsForSquidGameMeme.mp4':
-                message.channel.send(`That moment when sonicYTP pings everyone in the karters discord server for a squid game meme game`);
+                const memeEmbed02 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`That moment when sonicYTP pings everyone in the Karters discord server for a squid game meme game.`)
+                message.channel.send({ embeds: [memeEmbed02] });
+                break;
+            
+            case 'swipeUpToFlyCat.mp4':
+                const memeEmbed03 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Swipe up to fly kitty cat!`)
+                message.channel.send({ embeds: [memeEmbed03] });
+                break;
+            
+            case 'thatBedIsMine.mp4':
+                const memeEmbed04 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`That bed is MINE!`)
+                message.channel.send({ embeds: [memeEmbed04] });
                 break;
         
             default:

@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import BaseCommand from '../../utils/structures/BaseCommand';
 import DiscordClient from '../../client/client';
 import * as path from 'path';
@@ -10,13 +10,6 @@ import * as fs from 'fs';
  * 
  * In memory of 001 Abstract Ingenuity, the i01 bot
  */
-
-//import { CMDInterface } from '../../index.mjs';
-
-// export const commandArtString: CMDInterface = { 
-//   cmdName: 'art',
-//   cmdDesc: `Post some game art from our game.`,
-// };
 
 export default class ArtCommand extends BaseCommand {
   constructor() {
@@ -52,13 +45,90 @@ export default class ArtCommand extends BaseCommand {
 
     };
 
-    console.log(`The SelectorString: ${selectorString}`); //debug selector string number
+    // console.log(`The SelectorString: ${selectorString}`); //debug selector string number
     decision = Number(selectorString) as number;
-    console.log(`The decision: ${decision}`); //debug decision number
+    // console.log(`The decision: ${decision}`); //debug decision number
 
-    console.log(artCollection[decision]);
+    // console.log(artCollection[decision]);
+    
+    switch (artCollection[decision]) {
+      /**
+       * Update this switch so that each file has its own message with embed.
+       */
+      case 'BeachTrack_01.png':
+        const artEmbed01 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Soak up the sun on this beach island getaway racetrack! Watch out for the crabs they like to snap away at those tires.`)
+        message.channel.send({ embeds: [artEmbed01] });
+        break;
 
-    message.channel.send(`${artCollection[decision]} art!`); //art dir test
+      case 'BeachTrack_02.png':
+        const artEmbed02 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Soak up the sun on this beach island getaway racetrack! This is a nice curve to drift on in front of the big conch shell.`);
+        message.channel.send({ embeds: [artEmbed02] });
+        break;
+
+      case 'BeachTrack_03.png':
+        const artEmbed03 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Soak up the sun on this beach island getaway racetrack!`)
+        message.channel.send({ embeds: [artEmbed03] });
+        break;
+
+      case 'Molten Mile-min.jpg':
+        const artEmbed04 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Be careful how you drift on these corners, you wouldn't want to fall into the lava.`)
+        message.channel.send({ embeds: [artEmbed04] });
+        break;
+      
+      case 'vulcano_art_design_concept_11_archways-min.jpg':
+        const artEmbed05 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Molten Mile archways art concept.`)
+        message.channel.send({ embeds: [artEmbed05] });
+        break;
+      
+      case 'vulcano_art_enviro_concept_b_dragon-min.jpg':
+        const artEmbed06 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Live dragons on the Molten Mile!`)
+        message.channel.send({ embeds: [artEmbed06] });
+        break;
+
+      case 'vulcano_art_enviro_concept_c_gate-min.jpg':
+        const artEmbed07 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Enter if you dare on the Molten Mile!`)
+        message.channel.send({ embeds: [artEmbed07] });
+        break;
+
+      case 'vulcano_art_enviro_concept_d_drop-min.jpg':
+        const artEmbed08 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Tiki statue on the Molten Mile!`)
+        message.channel.send({ embeds: [artEmbed08] });
+        break;
+
+      case 'vulcano_art_model_concept_12_trap_trunk-min.jpg':
+        const artEmbed09 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Watch out for this trap trunk!`)
+        message.channel.send({ embeds: [artEmbed09] });
+        break;
+
+      case 'vulcano_art_model_concept_13_trap_axe-min.jpg':
+        const artEmbed10 = new MessageEmbed()
+          .setColor("DARK_AQUA")
+          .setDescription(`Watch out for this swinging axe trap!`)
+        message.channel.send({ embeds: [artEmbed10] });
+        break;
+    
+      default:
+        break;
+    };
+
     message.channel.send({ files: [`${__dirname}${artFilePath}${artCollection[decision]}`] });
 
   };

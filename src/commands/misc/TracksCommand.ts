@@ -5,13 +5,6 @@ import * as path from "path";
 import * as fs from "fs";
 // import { promisify } from "util";
 
-//import { CMDInterface } from "../../index.mjs";
-
-// export const commandTrackString: CMDInterface = {
-//   cmdName: "tracks",
-//   cmdDesc: `Post some track art from our game.`,
-// };
-
 export default class TracksCommand extends BaseCommand {
   constructor() {
     super("tracks", "misc", ["track"], "Show a list of all tracks.");

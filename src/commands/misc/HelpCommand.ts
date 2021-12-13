@@ -3,11 +3,6 @@ import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
 import skinsHelpEmbed from "./CharactersCommand"
 
-// //Command string imports
-// import { verifyString } from "../authentication/VerifyCommand";
-// import { commandArtString } from "./ArtCommand";
-// import { commandTrackString } from "./TracksCommand";
-
 export default class HelpCommand extends BaseCommand {
   constructor() {
     super("help", "misc", [], "All Commands");
@@ -25,6 +20,8 @@ export default class HelpCommand extends BaseCommand {
       const botCommands = commandsArray
         .filter((command, index, a) => a.indexOf(command) === index)  // Filtering out duplicate commands (caused by adding aliases)
         .filter((command) => command.name !== "help") // Filtering out the help command + its description
+        .filter((command) => command.name !== "ping") // Filtering out the ping command + its description
+        .filter((command) => command.name !== "test") // Filtering out the test command + its description
         .sort((a, b) => a.name.localeCompare(b.name));  // Alphabetically sorting the commands
 
       botCommands.forEach((command) => {
