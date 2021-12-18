@@ -8,12 +8,6 @@ import { Captcha } from "captcha-canvas"; // importing captcha from npm module
 import { MembershipStates } from "discord.js/typings/enums";
 import GuildMemberAddEvent from "../../events/GuildMemberAddEvent";
 
-//import { CMDInterface } from "../../index.mjs";
-
-// export const verifyString: CMDInterface = {
-//   cmdName: 'verify',
-//   cmdDesc: `Verify yourself to be human and enter our Discord server`,
-// };
 
 export default class VerifyCommand extends BaseCommand {
   constructor() {
@@ -23,7 +17,7 @@ export default class VerifyCommand extends BaseCommand {
   async run(client: DiscordClient, message: Message, args: Array<string>) {
     const captcha = new Captcha(); //create a captcha canvas of 100x300.
     captcha.async = true; //Sync
-    captcha.addDecoy(); //Add decoy text on captcha canvas.
+    // captcha.addDecoy(); //Add decoy text on captcha canvas. Leave disabled for now as per request of sboczek
     captcha.drawTrace(); //draw trace lines on captcha canvas.
     captcha.drawCaptcha(); //draw captcha text on captcha canvas.
 

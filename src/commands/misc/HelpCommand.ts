@@ -44,18 +44,5 @@ export default class HelpCommand extends BaseCommand {
         message.channel.send("Oops! That command does not exist.");
       }
     }
-
-    /* By ProBoz
-    ********************
-
-    message.channel.send(`Help Menu: 
-    .${verifyString.cmdName}: .${verifyString.cmdDesc}
-    .${commandArtString.cmdName}: .${commandArtString.cmdDesc}
-    .${commandTrackString.cmdName}: .${commandTrackString.cmdDesc}`);
-    //There should be some styling added to this menu, try to loop through
-    //a list
-
-    ********************
-    */
   }
 }

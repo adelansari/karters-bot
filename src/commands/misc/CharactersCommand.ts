@@ -4,9 +4,6 @@ import DiscordClient from "../../client/client";
 import * as path from "path";
 import * as fs from "fs";
 
-
-
-
 export default class CharactersCommand extends BaseCommand {
   constructor() {
     super(
@@ -45,62 +42,89 @@ export default class CharactersCommand extends BaseCommand {
       return imgArr[Math.floor(Math.random() * imgArr.length)];
     }
 
-    // if user input was only .characters or .skins, it will show a list
-    if (args[0] === undefined) {
-      const skinsHelpEmbed = new MessageEmbed()
-        .setColor("#0099ff")
-        .setTitle("Characters and Skins")
-        .setDescription(
-          "The command can be used by both `.characters` or `skins`"
-        )
-        .addFields(
-          {
-            name: ".characters list",
-            value: "Shows a list of game characters.",
-          },
-          {
-            name: ".characters [NAME]",
-            value:
-              "Shows a random skin from the name character. Example: `.characters Puma`",
-          },
-          {
-            name: ".characters random",
-            value: "Shows a random skin from a random game character.",
+    // if user input was only .characters or .skins, it will show a list, check that it is not undefined or have a crash
+    let inputForThisCommand = args[0];
+
+    if (inputForThisCommand === undefined) {
+      inputForThisCommand = "spacethefinalfrontier";
+    };
+
+    if (inputForThisCommand !== undefined) {
+      let makeItLowerCase = inputForThisCommand.toLowerCase();
+      switch (makeItLowerCase) {
+        case "spacethefinalfrontier":
+          const blankEmbed = new MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle('Whoops! Use `.characters help` or `.skins help` to view the characters help menu.')
+          message.channel.send({ embeds: [blankEmbed] });
+          break;
+
+        case "list":
+          const listCharacterEmbed = new MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle("List of characters: ")
+            .setDescription(
+              characterList
+              .map((i) => `${characterList.indexOf(i) + 1}. ${i}`)
+              .join("\n")
+            )
+          message.channel.send({ embeds: [listCharacterEmbed] });
+          break;
+
+        case "random":
+          message.channel.send({
+            files: [
+              `${skinFilePath[randomSkinIndex]}${skinRandom(
+                skinsList[randomSkinIndex]
+              )}`,
+            ],
+          });
+          break;
+
+        case "help":
+          const skinsHelpEmbed = new MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle("Characters and Skins")
+            .setDescription(
+              "The command can be used by both `.characters` or `skins`"
+            )
+            .addFields(
+              {
+                name: ".characters list",
+                value: "Shows a list of game characters.",
+              },
+              {
+                name: ".characters [NAME]",
+                value:
+                  "Shows a random skin from the name character. Example: `.characters Puma`",
+              },
+              {
+                name: ".characters random",
+                value: "Shows a random skin from a random game character.",
+              }
+            );
+
+          message.channel.send({ embeds: [skinsHelpEmbed] });
+          break;
+
+        default:
+          if (characterList.indexOf(args[0]) > -1) {
+            const characterIndex = characterList.indexOf(args[0]);
+            message.channel.send({
+              files: [
+                `${skinFilePath[characterIndex]}${skinRandom(
+                  skinsList[characterIndex]
+                )}`,
+              ],
+            });
+          } else {
+            const failCharacterEmbed = new MessageEmbed()
+              .setColor("#0099ff")
+              .setTitle(`Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`)
+            message.channel.send({ embeds: [failCharacterEmbed] });
           }
-        );
-
-      message.channel.send({ embeds: [skinsHelpEmbed] });
-
-    } else if (args[0].toLowerCase() === "list") {
-      message.channel.send("List of characters:");
-      message.channel.send(
-        characterList
-          .map((i) => `${characterList.indexOf(i) + 1}. ${i}`)
-          .join("\n")
-      );
-    } else if (args[0].toLowerCase() === "random") {
-      message.channel.send({
-        files: [
-          `${skinFilePath[randomSkinIndex]}${skinRandom(
-            skinsList[randomSkinIndex]
-          )}`,
-        ],
-      });
-    } else {
-      if (characterList.indexOf(args[0]) > -1) {
-        const characterIndex = characterList.indexOf(args[0]);
-        message.channel.send({
-          files: [
-            `${skinFilePath[characterIndex]}${skinRandom(
-              skinsList[characterIndex]
-            )}`,
-          ],
-        });
-      } else {
-        message.channel.send(
-          `Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`
-        );
-      }
-    }
+          break;
+      };
+    };
   }
 }
