@@ -53,16 +53,22 @@ export default class CharactersCommand extends BaseCommand {
       let makeItLowerCase = inputForThisCommand.toLowerCase();
       switch (makeItLowerCase) {
         case "spacethefinalfrontier":
-          message.channel.send("Whoops! Use `.characters help` or `.skins help` to view the characters help menu.");
+          const blankEmbed = new MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle('Whoops! Use `.characters help` or `.skins help` to view the characters help menu.')
+          message.channel.send({ embeds: [blankEmbed] });
           break;
-          
+
         case "list":
-          message.channel.send("List of characters:");
-          message.channel.send(
-            characterList
+          const listCharacterEmbed = new MessageEmbed()
+            .setColor("#0099ff")
+            .setTitle("List of characters: ")
+            .setDescription(
+              characterList
               .map((i) => `${characterList.indexOf(i) + 1}. ${i}`)
               .join("\n")
-          );
+            )
+          message.channel.send({ embeds: [listCharacterEmbed] });
           break;
 
         case "random":
@@ -112,9 +118,10 @@ export default class CharactersCommand extends BaseCommand {
               ],
             });
           } else {
-            message.channel.send(
-              `Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`
-            );
+            const failCharacterEmbed = new MessageEmbed()
+              .setColor("#0099ff")
+              .setTitle(`Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`)
+            message.channel.send({ embeds: [failCharacterEmbed] });
           }
           break;
       };
