@@ -37,12 +37,12 @@ export default class VerifyCommand extends BaseCommand {
       embeds: [captchaEmbed],
     });
 
-    // const { author } = message; // deconstructing the initial message with captcha command and saving the author object.
+    const { author } = message; // deconstructing the initial message with captcha command and saving the author object.
 
     let member = message.member as GuildMember;
 
     const filter = (message: { author: { id: string }; content: string }) => {
-      if (message.author.id !== member.id) {
+      if (author.id !== member.id) {
         return false;
       }
       if (message.content === captcha.text) {

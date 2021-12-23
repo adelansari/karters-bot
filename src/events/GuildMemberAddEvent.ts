@@ -23,7 +23,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
     // console.log(member.user.tag);
     const captcha = new Captcha(); //create a captcha canvas of 100x300.
     captcha.async = true; //Sync
-    captcha.addDecoy(); //Add decoy text on captcha canvas.
+    //captcha.addDecoy(); //Add decoy text on captcha canvas.
     captcha.drawTrace(); //draw trace lines on captcha canvas.
     captcha.drawCaptcha(); //draw captcha text on captcha canvas.
 
