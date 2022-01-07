@@ -61,25 +61,46 @@ export default class MemesCommand extends BaseCommand {
                 message.channel.send({ embeds: [memeEmbed01] });
                 break;
 
-            case 'sonicYTP_pingsForSquidGameMeme.mp4':
+            case 'Marine.mp4':
                 const memeEmbed02 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`That moment when sonicYTP pings everyone in the Karters discord server for a squid game meme game.`)
+                    .setDescription(`Time to fly lol!`)
                 message.channel.send({ embeds: [memeEmbed02] });
+                break;
+
+            case 'SeeYa.webm':
+                const memeEmbed03 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Welp, there goes another one of 'em ...`)
+                message.channel.send({ embeds: [memeEmbed03] });
+                break;
+
+            case 'sonicYTP_pingsForSquidGameMeme.mp4':
+                const memeEmbed04 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`That moment when sonicYTP pings everyone in the Karters discord server for a squid game meme game.`)
+                message.channel.send({ embeds: [memeEmbed04] });
                 break;
             
             case 'swipeUpToFlyCat.mp4':
-                const memeEmbed03 = new MessageEmbed()
+                const memeEmbed05 = new MessageEmbed()
                     .setColor("GOLD")
                     .setDescription(`Swipe up to fly kitty cat!`)
-                message.channel.send({ embeds: [memeEmbed03] });
+                message.channel.send({ embeds: [memeEmbed05] });
                 break;
             
             case 'thatBedIsMine.mp4':
-                const memeEmbed04 = new MessageEmbed()
+                const memeEmbed06 = new MessageEmbed()
                     .setColor("GOLD")
                     .setDescription(`That bed is MINE!`)
-                message.channel.send({ embeds: [memeEmbed04] });
+                message.channel.send({ embeds: [memeEmbed06] });
+                break;
+
+            case 'weirdnessRandom1.webm':
+                const memeEmbed07 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`... and now for something completely different!`)
+                message.channel.send({ embeds: [memeEmbed07] });
                 break;
         
             default:
