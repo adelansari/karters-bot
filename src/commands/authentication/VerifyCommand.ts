@@ -45,7 +45,7 @@ export default class VerifyCommand extends BaseCommand {
       if (author.id !== member.id) {
         return false;
       }
-      if (message.content === captcha.text) {
+      if (message.content.toUpperCase() === captcha.text) {
         return true;
       } else {
         member.send("Wrong captcha! Please try again.");
