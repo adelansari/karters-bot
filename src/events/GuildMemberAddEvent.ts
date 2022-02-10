@@ -61,7 +61,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
       if (message.author.id !== member.id) {
         return false;
       }
-      if (message.content === captcha.text) {
+      if (message.content.toUpperCase() === captcha.text) {
         return true;
       } else {
         verifychannel.send("Wrong captcha! Please try again.");
