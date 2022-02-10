@@ -102,6 +102,34 @@ export default class MemesCommand extends BaseCommand {
                     .setDescription(`... and now for something completely different!`)
                 message.channel.send({ embeds: [memeEmbed07] });
                 break;
+
+            case 'SeeYa2.webm':
+                const memeEmbed08 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Welp, there goes another one of 'em ... again`)
+                message.channel.send({ embeds: [memeEmbed08] });
+                break;
+
+            case 'dbus.mp4':
+                const memeEmbed09 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Bus drifting!`)
+                message.channel.send({ embeds: [memeEmbed09] });
+                break;
+
+            case 'squeezeCar.jpg':
+                const memeEmbed10 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Car squeezed`)
+                message.channel.send({ embeds: [memeEmbed10] });
+                break;
+
+            case 'KartersMemeSpinoff.png':
+                const memeEmbed11 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Is this a game spin-off?`)
+                message.channel.send({ embeds: [memeEmbed11] });
+                break;
         
             default:
                 break;
