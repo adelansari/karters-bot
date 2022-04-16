@@ -130,6 +130,48 @@ export default class MemesCommand extends BaseCommand {
                     .setDescription(`Is this a game spin-off?`)
                 message.channel.send({ embeds: [memeEmbed11] });
                 break;
+
+            case 'samurai_fight.mp4':
+                const memeEmbed12 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Samurai Fight with Jetpacks!`)
+                message.channel.send({ embeds: [memeEmbed12] });
+                break;
+
+            case 'RealRockFM.mp4':
+                const memeEmbed13 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Real Rock FM`)
+                message.channel.send({ embeds: [memeEmbed13] });
+                break;
+
+            case 'ThatTractorBruh.mp4':
+                const memeEmbed14 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`That half of a tractor is being a sports car!`)
+                message.channel.send({ embeds: [memeEmbed14] });
+                break;
+
+            case 'PugDanceBattleScene.mp4':
+                const memeEmbed15 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Pug Dance Battle Stage`)
+                message.channel.send({ embeds: [memeEmbed15] });
+                break;
+
+            case 'GangOnRainbowRoad.mp4':
+                const memeEmbed16 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`The Gang Driving on Rainbow Road`)
+                message.channel.send({ embeds: [memeEmbed16] });
+                break;
+
+            case 'ForkliftStunts.webm':
+                const memeEmbed17 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`Forklift Stunts!`)
+                message.channel.send({ embeds: [memeEmbed17] });
+                break;
         
             default:
                 break;
