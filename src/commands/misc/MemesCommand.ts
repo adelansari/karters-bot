@@ -1,6 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import BaseCommand from '../../utils/structures/BaseCommand';
 import DiscordClient from '../../client/client';
+import { GlobalLinks } from '../../reusableMiscComponents/GlobalLinks';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -17,7 +18,7 @@ export default class MemesCommand extends BaseCommand {
 
     async run(client: DiscordClient, message: Message, args: Array<string>) {
 
-        const memeFilePath = "/assets/memes/" as string;
+        const memeFilePath = GlobalLinks.memesUrl as string;
         const memeImgDir:string = path.join(__dirname, `.${memeFilePath}`);
         const memeCollection = fs.readdirSync(memeImgDir);
 
@@ -171,6 +172,13 @@ export default class MemesCommand extends BaseCommand {
                     .setColor("GOLD")
                     .setDescription(`Forklift Stunts!`)
                 message.channel.send({ embeds: [memeEmbed17] });
+                break;
+
+            case 'wuggie1.webm':
+                const memeEmbed18 = new MessageEmbed()
+                    .setColor("GOLD")
+                    .setDescription(`I Don't Even Know, What Is Gravity?`)
+                message.channel.send({ embeds: [memeEmbed18] });
                 break;
         
             default:
