@@ -22,6 +22,7 @@ export default class HelpCommand extends BaseCommand {
         .filter((command) => command.name !== "help") // Filtering out the help command + its description
         .filter((command) => command.name !== "ping") // Filtering out the ping command + its description
         .filter((command) => command.name !== "test") // Filtering out the test command + its description
+        .filter((command) => command.name !== "groupMemes") //WIP command, keep filtered out for now
         .sort((a, b) => a.name.localeCompare(b.name));  // Alphabetically sorting the commands
 
       botCommands.forEach((command) => {
