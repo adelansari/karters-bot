@@ -45,18 +45,18 @@ export default class MemesGroupCommand extends BaseCommand {
                             {
                                 label: memeGroup[0],
                                 description: `Meme: ${memeGroup[0]}`,
-                                value: 'meme_A',
+                                value: memeGroup[0],
                             },
                             {
                                 label: memeGroup[1],
                                 description: `Meme: ${memeGroup[1]}`,
-                                value: 'meme_B',
+                                value: memeGroup[1],
                             },
 
                         ])
                 );
         
-            await message.reply({ content: 'Here is the full collection:', components: [memeRow] });
+            await message.reply({ content: 'Here is the full collection:', components: [memeRow] }); 
             /**
              * Todo - How do you get the bot to Interact with these messages using
              * MessageComponentInteraction? - ProBoz
