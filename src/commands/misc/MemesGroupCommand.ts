@@ -18,7 +18,7 @@ export default class MemesGroupCommand extends BaseCommand {
     };
 
     async run(client: DiscordClient, message: Message, args: Array<string>) {
-        message.channel.send('This is a test command.');
+        // message.channel.send('This is a test command.');
 
         const memeFilePath = GlobalLinks.memesUrl as string;
         const memeImgDir:string = path.join(__dirname, `.${memeFilePath}`);
@@ -32,7 +32,7 @@ export default class MemesGroupCommand extends BaseCommand {
 
         });
 
-        message.channel.send(`Meme list contains: ${memeGroup}`); //debug
+        // message.channel.send(`Meme list contains: ${memeGroup}`); //debug
 
         if (memeGroup) {
 

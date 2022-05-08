@@ -1,5 +1,11 @@
 // https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-interactionCreate
-import { Interaction, MessageAttachment, MessageEmbed } from "discord.js";
+import {
+  Interaction,
+  MessageAttachment,
+  MessageEmbed,
+  MessageActionRow,
+  MessageButton,
+} from "discord.js";
 import wait from "timers/promises";
 import BaseEvent from "../utils/structures/BaseEvent";
 import DiscordClient from "../client/client";
@@ -12,7 +18,6 @@ export default class InteractionCreateEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, interaction: Interaction) {
-
     // For MemesGroup command
     const memeFilePath = "/commands/misc/assets/memes/" as string; //update this string if file path changes
     const memeDir: string = path.join(__dirname, `./..${memeFilePath}`); // saving the memes path and correcting it
@@ -55,16 +60,51 @@ export default class InteractionCreateEvent extends BaseEvent {
       );
     }
 
+    // initializing embed as zero
     let embedNext = 0;
+
     if (interaction.isButton()) {
-      if (interaction.customId === "nextbtn") {
-        ++embedNext
+      // creating Buttons
+      const button1 = new MessageButton()
+        .setCustomId("previousbtn")
+        .setLabel("Previous")
+        .setEmoji("◀")
+        .setStyle("SECONDARY")
+        .setDisabled(embedNext === 0);
+
+      const button2 = new MessageButton()
+        .setCustomId("nextbtn")
+        .setLabel("Next")
+        .setEmoji("▶")
+        .setStyle("SECONDARY")
+        .setDisabled(embedNext === artCollection.length - 1);
+
+      // create an array of buttons
+      const buttonList = [button1, button2];
+
+      // Create a MessageActionRow and add the button to that row.
+      const row = new MessageActionRow().addComponents(buttonList);
+
+      if (interaction.customId === "nextbtn" && embedNext < artCollection.length-1) {
+        ++embedNext;
         await interaction.deferUpdate();
         await wait.setTimeout(4000);
-        await interaction.reply({ embeds: [embeds[embedNext]], files: [files[embedNext]], components: [row] });
-
-      }
-
+        await interaction.reply({
+          embeds: [embeds[embedNext]],
+          files: [files[embedNext]],
+          components: [row],
+        });
+      };
+      if((interaction.customId === "previousbtn" && embedNext > 0)) {
+        --embedNext;
+        await interaction.deferUpdate();
+        await wait.setTimeout(4000);
+        await interaction.reply({
+          embeds: [embeds[embedNext]],
+          files: [files[embedNext]],
+          components: [row],
+        });
+      };
     }
 
     // if (interaction.isButton()) {
