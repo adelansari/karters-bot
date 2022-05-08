@@ -9,3 +9,5 @@ src/botToken.json
 .package-lock.json
 .yarn.lock
 .package-lock.json
+yarn.lock
+yarn-error.log
