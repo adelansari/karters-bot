@@ -9,8 +9,9 @@ import * as fs from 'fs';
 /**
  * @MemesGroupCommand - Display a meme using the "Discord UI" for
  * a command and be able to browse which meme you want to appear.
- * This is experimental, command is WIP keep this filtered out for now
- * inside HelpCommand.ts - ProBoz
+ * 
+ * See InteractionCreateEvent.ts to see the async receiving
+ * end for this message action row - ProBoz
  */
 
 export default class MemesGroupCommand extends BaseCommand {
@@ -36,6 +37,20 @@ export default class MemesGroupCommand extends BaseCommand {
 
         // message.channel.send(`Meme list contains: ${memeGroup}`); //debug
 
+        const meme0: string[] = memeGroup.filter(meme0 => meme0.includes(GlobalMemeDescriptions.memeFileName01));
+        const meme1: string[] = memeGroup.filter(meme1 => meme1.includes(GlobalMemeDescriptions.memeFileName02));
+        const meme2: string[] = memeGroup.filter(meme2 => meme2.includes(GlobalMemeDescriptions.memeFileName03));
+        const meme3: string[] = memeGroup.filter(meme3 => meme3.includes(GlobalMemeDescriptions.memeFileName04));
+        const meme4: string[] = memeGroup.filter(meme4 => meme4.includes(GlobalMemeDescriptions.memeFileName05));
+        const meme5: string[] = memeGroup.filter(meme5 => meme5.includes(GlobalMemeDescriptions.memeFileName08));
+        const meme6: string[] = memeGroup.filter(meme6 => meme6.includes(GlobalMemeDescriptions.memeFileName09));
+        const meme7: string[] = memeGroup.filter(meme7 => meme7.includes(GlobalMemeDescriptions.memeFileName10));
+        const meme8: string[] = memeGroup.filter(meme8 => meme8.includes(GlobalMemeDescriptions.memeFileName11));
+        const meme9: string[] = memeGroup.filter(meme9 => meme9.includes(GlobalMemeDescriptions.memeFileName18));
+        const meme10: string[] = memeGroup.filter(meme10 => meme10.includes(GlobalMemeDescriptions.memeFileName07));
+
+        // message.channel.send(`Meme 0 is: ${meme0}`); //debug, create one for each meme<number> variable
+
         if (memeGroup) {
 
             const memeRow = new MessageActionRow()
@@ -45,55 +60,60 @@ export default class MemesGroupCommand extends BaseCommand {
                         .setPlaceholder("Vroom vroom choose a meme!")
                         .setOptions([
                             {
-                                label: memeGroup[0],
+                                label: meme0[0], //dbus.mp4
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc09}`,
-                                value: memeGroup[0],
+                                value: meme0[0],
                             },
                             {
-                                label: memeGroup[1],
+                                label: meme1[0], //ForkliftStunts.webm
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc17}`,
-                                value: memeGroup[1],
+                                value: meme1[0],
                             },
                             {
-                                label: memeGroup[2],
+                                label: meme2[0], //GangOnRainbowRoad.mp4
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc16}`,
-                                value: memeGroup[2],
+                                value: meme2[0],
                             },
                             {
-                                label: memeGroup[3],
+                                label: meme3[0], //KartersMemeSpinoff.png
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc11}`,
-                                value: memeGroup[3],
+                                value: meme3[0],
                             },
                             {
-                                label: memeGroup[4],
+                                label: meme4[0], //luigiMansionSkate.mp4
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc01}`,
-                                value: memeGroup[4],
+                                value: meme4[0],
                             },
                             {
-                                label: memeGroup[7],
+                                label: meme5[0], //RealRockFM.mp4
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc13}`,
-                                value: memeGroup[7],
+                                value: meme5[0],
                             },
                             {
-                                label: memeGroup[8],
+                                label: meme6[0], //samurai_fight.mp4
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc12}`,
-                                value: memeGroup[8],
+                                value: meme6[0],
                             },
                             {
-                                label: memeGroup[9],
+                                label: meme7[0], //SeeYa.webm
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc03}`,
-                                value: memeGroup[9],
+                                value: meme7[0],
                             },
                             {
-                                label: memeGroup[10],
+                                label: meme8[0], //SeeYa2.webm
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc08}`,
-                                value: memeGroup[10],
+                                value: meme8[0],
                             },
                             {
-                                label: memeGroup[17],
+                                label: meme9[0], //wuggie1.webm
                                 description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc18}`,
-                                value: memeGroup[17],
-                            }
+                                value: meme9[0],
+                            },
+                            {
+                                label: meme10[0], //PugDanceBattleScene.mp4
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc15}`,
+                                value: meme10[0],
+                            },
                         ])
                 );
         

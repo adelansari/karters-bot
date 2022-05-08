@@ -52,7 +52,8 @@ export default class ArtCommand extends BaseCommand {
 
     // console.log(artCollection[decision]);
 
-    switch (artCollection[decision]) {
+
+      switch (artCollection[decision]) {
       /**
        * Update this switch so that each file has its own message with embed.
        */
@@ -160,56 +161,46 @@ export default class ArtCommand extends BaseCommand {
     // // be active during production mode. To uncomment this whole section, highlight all the source
     // // code, on windows: press CTRL + /, on mac: press control + /
 
-    // const embeds: MessageEmbed[] = [];
-    // const pages = {} as { [key:string]: number }  // { userId: pageNumber }
-    // // const channel = {} as TextChannel;
-    // // const user = {} as User;
-    // const files: MessageAttachment[] = [];
-    // for (let i = 0; i < artCollection.length; ++i) {
-    //   files.push(
-    //     new MessageAttachment(`${__dirname}${artFilePath}${artCollection[i]}`)
-    //   );
-    //   console.log(`${__dirname}${artFilePath}${artCollection[i]}`);
-    //   embeds.push(
-    //     new MessageEmbed()
-    //       .setTitle("All Arts")
-    //       .setDescription(`Image ${i + 1}/${artCollection.length}`)
-    //       .setImage(`attachment://${artCollection[i]}`)
-    //   );
-    // }
+    const embeds: MessageEmbed[] = [];
+    const pages = {} as { [key:string]: number }  // { userId: pageNumber }
+    // const channel = {} as TextChannel;
+    // const user = {} as User;
+    const files: MessageAttachment[] = [];
+    for (let i = 0; i < artCollection.length; ++i) {
+      files.push(
+        new MessageAttachment(`${__dirname}${artFilePath}${artCollection[i]}`)
+      );
+      // console.log(`${__dirname}${artFilePath}${artCollection[i]}`);
+      embeds.push(
+        new MessageEmbed()
+          .setTitle("All Arts")
+          .setDescription(`Image ${i + 1}/${artCollection.length}`)
+          .setImage(`attachment://${artCollection[i]}`)
+      );
+    }
 
-    
+    // creating Buttons
+    const button1 = new MessageButton()
+      .setCustomId("previousbtn")
+      .setLabel("Previous")
+      .setEmoji('◀')
+      .setStyle('SECONDARY')
 
-    // // creating Buttons
-    // const button1 = new MessageButton()
-    //   .setCustomId("previousbtn")
-    //   .setLabel("Previous")
-    //   .setEmoji('◀')
-    //   .setStyle('SECONDARY')
+    const button2 = new MessageButton()
+      .setCustomId("nextbtn")
+      .setLabel("Next")
+      .setEmoji('▶')
+      .setStyle('SECONDARY')
 
-    // const button2 = new MessageButton()
-    //   .setCustomId("nextbtn")
-    //   .setLabel("Next")
-    //   .setEmoji('▶')
-    //   .setStyle('SECONDARY')
+    // create an array of buttons
+    const buttonList = [button1, button2];
 
-    // // create an array of buttons
-    // const buttonList = [button1, button2];
-
-    
-
-
-    // // Create a MessageActionRow and add the button to that row.
-    // const row = new MessageActionRow().addComponents(buttonList);
-
-    // // sending the first embed along with the buttons
-    // await message.reply({ embeds: [embeds[0]], files: [files[0]], components: [row] });
+    // Create a MessageActionRow and add the button to that row.
+    const row = new MessageActionRow().addComponents(buttonList);
 
 
-
-
-
-
+    // sending the first embed along with the buttons
+    const embedMessage = await message.reply({ embeds: [embeds[0]], files: [files[0]], components: [row] });
 
 
 

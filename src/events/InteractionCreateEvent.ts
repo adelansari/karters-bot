@@ -5,6 +5,8 @@ import {
   MessageEmbed,
   MessageActionRow,
   MessageButton,
+  Message,
+  User,
 } from "discord.js";
 import wait from "timers/promises";
 import BaseEvent from "../utils/structures/BaseEvent";
@@ -13,6 +15,9 @@ import { GlobalLinks } from "../reusableMiscComponents/GlobalLinks";
 import { GlobalMemeDescriptions } from "../reusableMiscComponents/GlobalMemeDescriptions";
 import * as path from "path";
 import * as fs from "fs";
+
+// initializing embed as zero
+let embedNext = 0;
 
 export default class InteractionCreateEvent extends BaseEvent {
   constructor() {
@@ -35,7 +40,7 @@ export default class InteractionCreateEvent extends BaseEvent {
         // await interaction.update({ content: `You have selected ${interaction.values[0]}`, files: [memeChosenPath], components: [] });
 
         await interaction.deferUpdate();
-        await wait.setTimeout(2500);
+        await wait.setTimeout(4000);
         const file = new MessageAttachment(memeChosenPath);
         let memeDescription: string = ``;
         switch (interaction.values[0]) {
@@ -58,7 +63,7 @@ export default class InteractionCreateEvent extends BaseEvent {
           case GlobalMemeDescriptions.memeFileName04:
             memeDescription = GlobalMemeDescriptions.memeDesc11;
             break;
-          
+
           case GlobalMemeDescriptions.memeFileName05:
             memeDescription = GlobalMemeDescriptions.memeDesc01;
             break;
@@ -81,6 +86,10 @@ export default class InteractionCreateEvent extends BaseEvent {
 
           case GlobalMemeDescriptions.memeFileName18:
             memeDescription = GlobalMemeDescriptions.memeDesc18;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName07:
+            memeDescription = GlobalMemeDescriptions.memeDesc15;
             break;
         
           default:
@@ -114,7 +123,6 @@ export default class InteractionCreateEvent extends BaseEvent {
     }
 
     // initializing embed as zero
-    let embedNext = 0;
 
     if (interaction.isButton()) {
       // creating Buttons
@@ -122,15 +130,15 @@ export default class InteractionCreateEvent extends BaseEvent {
         .setCustomId("previousbtn")
         .setLabel("Previous")
         .setEmoji("◀")
-        .setStyle("SECONDARY")
-        .setDisabled(embedNext === 0);
+        .setStyle("SECONDARY");
+      // .setDisabled(embedNext === 0);
 
       const button2 = new MessageButton()
         .setCustomId("nextbtn")
         .setLabel("Next")
         .setEmoji("▶")
-        .setStyle("SECONDARY")
-        .setDisabled(embedNext === artCollection.length - 1);
+        .setStyle("SECONDARY");
+      // .setDisabled(embedNext === artCollection.length - 1);
 
       // create an array of buttons
       const buttonList = [button1, button2];
@@ -138,45 +146,66 @@ export default class InteractionCreateEvent extends BaseEvent {
       // Create a MessageActionRow and add the button to that row.
       const row = new MessageActionRow().addComponents(buttonList);
 
-      if (interaction.customId === "nextbtn" && embedNext < artCollection.length-1) {
-        ++embedNext;
-        await interaction.deferUpdate();
-        await wait.setTimeout(4000);
-        await interaction.reply({
-          embeds: [embeds[embedNext]],
-          files: [files[embedNext]],
-          components: [row],
-        });
-      };
-      if((interaction.customId === "previousbtn" && embedNext > 0)) {
-        --embedNext;
-        await interaction.deferUpdate();
-        await wait.setTimeout(4000);
-        await interaction.reply({
-          embeds: [embeds[embedNext]],
-          files: [files[embedNext]],
-          components: [row],
-        });
-      };
+      const buttonSelected = interaction.customId;
+
+      switch (buttonSelected) {
+        case "nextbtn":
+          if (embedNext < artCollection.length - 1) {
+            embedNext++;
+            await interaction.deferUpdate();
+            await wait.setTimeout(2500);
+            await interaction.editReply({
+              embeds: [embeds[embedNext]],
+              files: [files[embedNext]],
+              components: [row],
+            });
+            if (embedNext === artCollection.length - 1) {
+              embedNext = -1;
+            }
+          }
+          break;
+        case "previousbtn":
+          if (embedNext > 0) {
+            embedNext--;
+            await interaction.deferUpdate();
+            await wait.setTimeout(2500);
+            await interaction.editReply({
+              embeds: [embeds[embedNext]],
+              files: [files[embedNext]],
+              components: [row],
+            });
+            if (embedNext === 0) {
+              embedNext = artCollection.length;
+            }
+          }
+          break;
+      }
+
+      // if (
+      //   interaction.customId === "nextbtn" &&
+      //   embedNext < artCollection.length - 1
+      // ) {
+      //   embedNext++;
+      //   console.log(embedNext);
+      //   await interaction.deferUpdate();
+      //   await wait.setTimeout(2500);
+      //   await interaction.editReply({
+      //     embeds: [embeds[embedNext]],
+      //     files: [files[embedNext]],
+      //     components: [row],
+      //   });
+      // }
+      // if (interaction.customId === "previousbtn" && embedNext > 0) {
+      //   embedNext--;
+      //   console.log(embedNext);
+      //   await interaction.deferUpdate();
+      //   await wait.setTimeout(2500);
+      //   await interaction.editReply({
+      //     embeds: [embeds[embedNext]],
+      //     files: [files[embedNext]],
+      //     components: [row],
+      //   });
+      // }
     }
-
-    // if (interaction.isButton()) {
-    //   const filter = (i: any) =>
-    //     i.customId === "nextbtn";
-    //   const collector = interaction.channel.createMessageComponentCollector({
-    //     filter,
-    //     time: 15000,
-    //   });
-
-    //   collector.on("collect", async (i: any) => {
-    //     if (i.customId === "nextbtn") {
-    //       await i.update({ content: "A button was clicked!", components: [] });
-    //     }
-    //   });
-
-    //   collector.on("end", (collected) =>
-    //     console.log(`Collected ${collected.size} items`)
-    //   );
-    // }
   }
 }
