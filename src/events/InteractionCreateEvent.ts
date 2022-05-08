@@ -9,6 +9,8 @@ import {
 import wait from "timers/promises";
 import BaseEvent from "../utils/structures/BaseEvent";
 import DiscordClient from "../client/client";
+import { GlobalLinks } from "../reusableMiscComponents/GlobalLinks";
+import { GlobalMemeDescriptions } from "../reusableMiscComponents/GlobalMemeDescriptions";
 import * as path from "path";
 import * as fs from "fs";
 
@@ -18,8 +20,10 @@ export default class InteractionCreateEvent extends BaseEvent {
   }
 
   async run(client: DiscordClient, interaction: Interaction) {
-    // For MemesGroup command
-    const memeFilePath = "/commands/misc/assets/memes/" as string; //update this string if file path changes
+    /**
+     * For MemesGroupCommand, see MemesGroupCommand.ts
+     */
+    const memeFilePath = GlobalLinks.memesGroupUrl as string; //update this string if file path changes
     const memeDir: string = path.join(__dirname, `./..${memeFilePath}`); // saving the memes path and correcting it
 
     if (interaction.isSelectMenu()) {
@@ -31,18 +35,67 @@ export default class InteractionCreateEvent extends BaseEvent {
         // await interaction.update({ content: `You have selected ${interaction.values[0]}`, files: [memeChosenPath], components: [] });
 
         await interaction.deferUpdate();
-        await wait.setTimeout(4000);
+        await wait.setTimeout(2500);
         const file = new MessageAttachment(memeChosenPath);
+        let memeDescription: string = ``;
+        switch (interaction.values[0]) {
+          /**
+           * Update this switch if you want a meme to be
+           * one you can select from MemesGroupCommand.ts
+           */
+          case GlobalMemeDescriptions.memeFileName01:
+            memeDescription = GlobalMemeDescriptions.memeDesc09;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName02:
+            memeDescription = GlobalMemeDescriptions.memeDesc17;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName03:
+            memeDescription = GlobalMemeDescriptions.memeDesc16;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName04:
+            memeDescription = GlobalMemeDescriptions.memeDesc11;
+            break;
+          
+          case GlobalMemeDescriptions.memeFileName05:
+            memeDescription = GlobalMemeDescriptions.memeDesc01;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName08:
+            memeDescription = GlobalMemeDescriptions.memeDesc13;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName09:
+            memeDescription = GlobalMemeDescriptions.memeDesc12;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName10:
+            memeDescription = GlobalMemeDescriptions.memeDesc03;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName11:
+            memeDescription = GlobalMemeDescriptions.memeDesc08;
+            break;
+
+          case GlobalMemeDescriptions.memeFileName18:
+            memeDescription = GlobalMemeDescriptions.memeDesc18;
+            break;
+        
+          default:
+            break;
+        }
         await interaction.editReply({
-          content: `You have selected ${interaction.values[0]}`,
+          content: `${interaction.user.username}, you have selected ${interaction.values[0]} - ${memeDescription}`,
           files: [file],
-          // components: [],
+          components: [], //keep this list blank so the multi select isn't rendered again
         });
       }
     }
 
     // For Art command
-    const artFilePath = "/commands/misc/assets/gameArt/" as string; //update this string if file path changes
+    const artFilePath = GlobalLinks.artUrl as string; //update this string if file path changes
     const imageDir: string = path.join(__dirname, `./..${artFilePath}`); // saving the gameArt path and correcting it
     const artCollection = fs.readdirSync(imageDir); // reading the "images" folder and saving the file names in an array.
 

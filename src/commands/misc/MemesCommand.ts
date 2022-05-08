@@ -2,6 +2,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import BaseCommand from '../../utils/structures/BaseCommand';
 import DiscordClient from '../../client/client';
 import { GlobalLinks } from '../../reusableMiscComponents/GlobalLinks';
+import { GlobalMemeDescriptions } from '../../reusableMiscComponents/GlobalMemeDescriptions';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -9,6 +10,9 @@ import * as fs from 'fs';
  * @MemesCommand - Display a meme related to any community
  * related event from the Karters official discord guild.
  * It's very similar to ArtCommand.ts - ProBoz
+ * 
+ * Note: If you want to make any of these memes selectable,
+ * see events/InteractionCreateEvent.ts
  */
 
 export default class MemesCommand extends BaseCommand {
@@ -55,129 +59,129 @@ export default class MemesCommand extends BaseCommand {
             /**
              * Update this switch so that each meme file has its own message.
              */
-            case 'luigiMansionSkate.mp4':
+            case GlobalMemeDescriptions.memeFileName05:
                 const memeEmbed01 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Luigi's Mansion skate edition`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc01)
                 message.channel.send({ embeds: [memeEmbed01] });
                 break;
 
-            case 'Marine.mp4':
+            case GlobalMemeDescriptions.memeFileName06:
                 const memeEmbed02 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Time to fly lol!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc02)
                 message.channel.send({ embeds: [memeEmbed02] });
                 break;
 
-            case 'SeeYa.webm':
+            case GlobalMemeDescriptions.memeFileName10:
                 const memeEmbed03 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Welp, there goes another one of 'em ...`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc03)
                 message.channel.send({ embeds: [memeEmbed03] });
                 break;
 
-            case 'sonicYTP_pingsForSquidGameMeme.mp4':
+            case GlobalMemeDescriptions.memeFileName12:
                 const memeEmbed04 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`That moment when sonicYTP pings everyone in the Karters discord server for a squid game meme game.`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc04)
                 message.channel.send({ embeds: [memeEmbed04] });
                 break;
             
-            case 'swipeUpToFlyCat.mp4':
+            case GlobalMemeDescriptions.memeFileName14:
                 const memeEmbed05 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Swipe up to fly kitty cat!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc05)
                 message.channel.send({ embeds: [memeEmbed05] });
                 break;
             
-            case 'thatBedIsMine.mp4':
+            case GlobalMemeDescriptions.memeFileName15:
                 const memeEmbed06 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`That bed is MINE!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc06)
                 message.channel.send({ embeds: [memeEmbed06] });
                 break;
 
-            case 'weirdnessRandom1.webm':
+            case GlobalMemeDescriptions.memeFileName17:
                 const memeEmbed07 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`... and now for something completely different!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc07)
                 message.channel.send({ embeds: [memeEmbed07] });
                 break;
 
-            case 'SeeYa2.webm':
+            case GlobalMemeDescriptions.memeFileName11:
                 const memeEmbed08 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Welp, there goes another one of 'em ... again`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc08)
                 message.channel.send({ embeds: [memeEmbed08] });
                 break;
 
-            case 'dbus.mp4':
+            case GlobalMemeDescriptions.memeFileName01:
                 const memeEmbed09 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Bus drifting!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc09)
                 message.channel.send({ embeds: [memeEmbed09] });
                 break;
 
-            case 'squeezeCar.jpg':
+            case GlobalMemeDescriptions.memeFileName13:
                 const memeEmbed10 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Car squeezed`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc10)
                 message.channel.send({ embeds: [memeEmbed10] });
                 break;
 
-            case 'KartersMemeSpinoff.png':
+            case GlobalMemeDescriptions.memeFileName04:
                 const memeEmbed11 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Is this a game spin-off?`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc11)
                 message.channel.send({ embeds: [memeEmbed11] });
                 break;
 
-            case 'samurai_fight.mp4':
+            case GlobalMemeDescriptions.memeFileName09:
                 const memeEmbed12 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Samurai Fight with Jetpacks!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc12)
                 message.channel.send({ embeds: [memeEmbed12] });
                 break;
 
-            case 'RealRockFM.mp4':
+            case GlobalMemeDescriptions.memeFileName08:
                 const memeEmbed13 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Real Rock FM`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc13)
                 message.channel.send({ embeds: [memeEmbed13] });
                 break;
 
-            case 'ThatTractorBruh.mp4':
+            case GlobalMemeDescriptions.memeFileName16:
                 const memeEmbed14 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`That half of a tractor is being a sports car!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc14)
                 message.channel.send({ embeds: [memeEmbed14] });
                 break;
 
-            case 'PugDanceBattleScene.mp4':
+            case GlobalMemeDescriptions.memeFileName07:
                 const memeEmbed15 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Pug Dance Battle Stage`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc15)
                 message.channel.send({ embeds: [memeEmbed15] });
                 break;
 
-            case 'GangOnRainbowRoad.mp4':
+            case GlobalMemeDescriptions.memeFileName03:
                 const memeEmbed16 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`The Gang Driving on Rainbow Road`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc16)
                 message.channel.send({ embeds: [memeEmbed16] });
                 break;
 
-            case 'ForkliftStunts.webm':
+            case GlobalMemeDescriptions.memeFileName02:
                 const memeEmbed17 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`Forklift Stunts!`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc17)
                 message.channel.send({ embeds: [memeEmbed17] });
                 break;
 
-            case 'wuggie1.webm':
+            case GlobalMemeDescriptions.memeFileName18:
                 const memeEmbed18 = new MessageEmbed()
                     .setColor("GOLD")
-                    .setDescription(`I Don't Even Know, What Is Gravity?`)
+                    .setDescription(GlobalMemeDescriptions.memeDesc18)
                 message.channel.send({ embeds: [memeEmbed18] });
                 break;
         

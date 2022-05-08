@@ -11,8 +11,6 @@ import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
 import * as path from "path";
 import * as fs from "fs";
-import { Command } from "reconlx";
-// import { pagination } from "reconlx";
 
 /**
  * @ArtCommand - Display art related to The Karters and send
@@ -156,52 +154,56 @@ export default class ArtCommand extends BaseCommand {
 
 
 
-    // Making pages out of all images in gameArt directory
+    // // Making pages out of all images in gameArt directory
 
-    const embeds: MessageEmbed[] = [];
-    const pages = {} as { [key:string]: number }  // { userId: pageNumber }
-    // const channel = {} as TextChannel;
-    // const user = {} as User;
-    const files: MessageAttachment[] = [];
-    for (let i = 0; i < artCollection.length; ++i) {
-      files.push(
-        new MessageAttachment(`${__dirname}${artFilePath}${artCollection[i]}`)
-      );
-      console.log(`${__dirname}${artFilePath}${artCollection[i]}`);
-      embeds.push(
-        new MessageEmbed()
-          .setTitle("All Arts")
-          .setDescription(`Image ${i + 1}/${artCollection.length}`)
-          .setImage(`attachment://${artCollection[i]}`)
-      );
-    }
+    // // NOTE FROM ProBoz: Uncomment this code below to continue working on it, this should not
+    // // be active during production mode. To uncomment this whole section, highlight all the source
+    // // code, on windows: press CTRL + /, on mac: press control + /
 
-    
-
-    // creating Buttons
-    const button1 = new MessageButton()
-      .setCustomId("previousbtn")
-      .setLabel("Previous")
-      .setEmoji('◀')
-      .setStyle('SECONDARY')
-
-    const button2 = new MessageButton()
-      .setCustomId("nextbtn")
-      .setLabel("Next")
-      .setEmoji('▶')
-      .setStyle('SECONDARY')
-
-    // create an array of buttons
-    const buttonList = [button1, button2];
+    // const embeds: MessageEmbed[] = [];
+    // const pages = {} as { [key:string]: number }  // { userId: pageNumber }
+    // // const channel = {} as TextChannel;
+    // // const user = {} as User;
+    // const files: MessageAttachment[] = [];
+    // for (let i = 0; i < artCollection.length; ++i) {
+    //   files.push(
+    //     new MessageAttachment(`${__dirname}${artFilePath}${artCollection[i]}`)
+    //   );
+    //   console.log(`${__dirname}${artFilePath}${artCollection[i]}`);
+    //   embeds.push(
+    //     new MessageEmbed()
+    //       .setTitle("All Arts")
+    //       .setDescription(`Image ${i + 1}/${artCollection.length}`)
+    //       .setImage(`attachment://${artCollection[i]}`)
+    //   );
+    // }
 
     
 
+    // // creating Buttons
+    // const button1 = new MessageButton()
+    //   .setCustomId("previousbtn")
+    //   .setLabel("Previous")
+    //   .setEmoji('◀')
+    //   .setStyle('SECONDARY')
 
-    // Create a MessageActionRow and add the button to that row.
-    const row = new MessageActionRow().addComponents(buttonList);
+    // const button2 = new MessageButton()
+    //   .setCustomId("nextbtn")
+    //   .setLabel("Next")
+    //   .setEmoji('▶')
+    //   .setStyle('SECONDARY')
 
-    // sending the first embed along with the buttons
-    await message.reply({ embeds: [embeds[0]], files: [files[0]], components: [row] });
+    // // create an array of buttons
+    // const buttonList = [button1, button2];
+
+    
+
+
+    // // Create a MessageActionRow and add the button to that row.
+    // const row = new MessageActionRow().addComponents(buttonList);
+
+    // // sending the first embed along with the buttons
+    // await message.reply({ embeds: [embeds[0]], files: [files[0]], components: [row] });
 
 
 

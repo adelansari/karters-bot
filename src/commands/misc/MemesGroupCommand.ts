@@ -2,6 +2,7 @@ import { Message, MessageActionRow, MessageSelectMenu } from 'discord.js';
 import BaseCommand from '../../utils/structures/BaseCommand';
 import DiscordClient from '../../client/client';
 import { GlobalLinks } from '../../reusableMiscComponents/GlobalLinks';
+import { GlobalMemeDescriptions } from '../../reusableMiscComponents/GlobalMemeDescriptions';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -14,15 +15,16 @@ import * as fs from 'fs';
 
 export default class MemesGroupCommand extends BaseCommand {
     constructor() {
-        super('groupMemes', 'misc', [], "Random meme from some of the special moments, but you can choose a meme.");
+        super('pickmemes', 'misc', [], "Random meme from some of the special moments, but you can choose a meme.");
     };
 
     async run(client: DiscordClient, message: Message, args: Array<string>) {
-        // message.channel.send('This is a test command.');
 
         const memeFilePath = GlobalLinks.memesUrl as string;
         const memeImgDir:string = path.join(__dirname, `.${memeFilePath}`);
         const memeGroupCollection = fs.readdirSync(memeImgDir);
+        const presentMemeText = `Meme: ` as string;
+        const presetOptionsText = `Here is the full meme collection you can choose from: ` as string;
 
         let memeGroup: string[] = [];
 
@@ -41,26 +43,61 @@ export default class MemesGroupCommand extends BaseCommand {
                     new MessageSelectMenu()
                         .setCustomId("memeSelect")
                         .setPlaceholder("Vroom vroom choose a meme!")
-                        .addOptions([
+                        .setOptions([
                             {
                                 label: memeGroup[0],
-                                description: `Meme: ${memeGroup[0]}`,
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc09}`,
                                 value: memeGroup[0],
                             },
                             {
                                 label: memeGroup[1],
-                                description: `Meme: ${memeGroup[1]}`,
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc17}`,
                                 value: memeGroup[1],
                             },
-
+                            {
+                                label: memeGroup[2],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc16}`,
+                                value: memeGroup[2],
+                            },
+                            {
+                                label: memeGroup[3],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc11}`,
+                                value: memeGroup[3],
+                            },
+                            {
+                                label: memeGroup[4],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc01}`,
+                                value: memeGroup[4],
+                            },
+                            {
+                                label: memeGroup[7],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc13}`,
+                                value: memeGroup[7],
+                            },
+                            {
+                                label: memeGroup[8],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc12}`,
+                                value: memeGroup[8],
+                            },
+                            {
+                                label: memeGroup[9],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc03}`,
+                                value: memeGroup[9],
+                            },
+                            {
+                                label: memeGroup[10],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc08}`,
+                                value: memeGroup[10],
+                            },
+                            {
+                                label: memeGroup[17],
+                                description: `${presentMemeText}${GlobalMemeDescriptions.memeDesc18}`,
+                                value: memeGroup[17],
+                            }
                         ])
                 );
         
-            await message.reply({ content: 'Here is the full collection:', components: [memeRow] }); 
-            /**
-             * Todo - How do you get the bot to Interact with these messages using
-             * MessageComponentInteraction? - ProBoz
-             */
+            await message.channel.send({ content: `${message.author.username}, ${presetOptionsText}`, components: [memeRow] });
 
         } else if (!memeGroup) {
 
