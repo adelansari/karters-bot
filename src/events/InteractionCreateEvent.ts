@@ -88,6 +88,10 @@ export default class InteractionCreateEvent extends BaseEvent {
             memeDescription = GlobalMemeDescriptions.memeDesc18;
             break;
 
+          case GlobalMemeDescriptions.memeFileName07:
+            memeDescription = GlobalMemeDescriptions.memeDesc15;
+            break;
+        
           default:
             break;
         }
