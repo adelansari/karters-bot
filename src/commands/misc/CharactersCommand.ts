@@ -76,24 +76,26 @@ export default class CharactersCommand extends BaseCommand {
           // Correcting file names in PowerShell if necessary:
           // Get-ChildItem -recurse -name | ForEach-Object { Rename-Item $_ $_.replace(" ","_") }
           let charEmbeds: MessageEmbed[][] = [];
-          let skinImgUrls: string[][] = [];
+          let charEmbedGrab: MessageEmbed[] = [];
+          let skinImgUrls: string[] = [];
           let skinArrays: string[] = [];
 
           for (let i = 0; i < characterList.length; ++i) {
+            let skinArrays = skinsList[i]
             for (let j = 0; j < skinsList[i].length; ++j) {
-              let skinArrays = skinsList[i].map((data) => data[i]);
-              console.log(skinArrays)
-              // skinImgUrls[i][j] = skinUrl + `${characterList[i]}/${skinArrays[j]}`;
-              // charEmbeds[i].push(
-              //   new MessageEmbed()
-              //     .setTitle("All Characters")
-              //     .setDescription(`Character name ${characterList[i]}`)
-              //     .setImage(skinImgUrls[i][j])
-              // );
+              skinImgUrls.push(skinUrl + `${characterList[i]}/${skinArrays[j]}`);
+              charEmbedGrab.push(
+                new MessageEmbed()
+                  .setTitle("All Characters")
+                  .setDescription(`Character name ${characterList[i]}`)
+                  .setImage(skinImgUrls[j])
+              );
             }
+            charEmbeds.push(charEmbedGrab);
+            await new Pagination(message.channel as TextChannel, charEmbeds[i], "page").paginate()
           }
           
-          // await new Pagination(message.channel as TextChannel, charEmbeds[1], "page").paginate()
+          
 
           // characterList.forEach((characters, i) => {
           //   skinsList[i].forEach((skins, j) => {
