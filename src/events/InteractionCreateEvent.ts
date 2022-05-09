@@ -16,8 +16,8 @@ import { GlobalMemeDescriptions } from "../reusableMiscComponents/GlobalMemeDesc
 import * as path from "path";
 import * as fs from "fs";
 
-// initializing embed as zero
-let embedNext = 0;
+// initializing embed as zero for ArtCommand embeds
+// let embedNext = 0;
 
 export default class InteractionCreateEvent extends BaseEvent {
   constructor() {
@@ -103,109 +103,90 @@ export default class InteractionCreateEvent extends BaseEvent {
       }
     }
 
-    // For Art command
-    const artFilePath = GlobalLinks.artUrl as string; //update this string if file path changes
-    const imageDir: string = path.join(__dirname, `./..${artFilePath}`); // saving the gameArt path and correcting it
-    const artCollection = fs.readdirSync(imageDir); // reading the "images" folder and saving the file names in an array.
 
-    const embeds: MessageEmbed[] = [];
-    const files: MessageAttachment[] = [];
-    for (let i = 0; i < artCollection.length; ++i) {
-      files.push(
-        new MessageAttachment(path.join(`${imageDir}${artCollection[i]}`))
-      );
-      embeds.push(
-        new MessageEmbed()
-          .setTitle("All Arts")
-          .setDescription(`Image ${i + 1}/${artCollection.length}`)
-          .setImage(`attachment://${artCollection[i]}`)
-      );
-    }
 
-    // initializing embed as zero
+    // /**
+    //  * For ArtCommand, see ArtCommand.ts
+    //  * Code is working, however there is a better implementation of the code using discordjs-button-embed-pagination.
+    //  */
 
-    if (interaction.isButton()) {
-      // creating Buttons
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("Previous")
-        .setEmoji("◀")
-        .setStyle("SECONDARY");
-      // .setDisabled(embedNext === 0);
+    // // For Art command
+    // const artFilePath = GlobalLinks.artUrl as string; //update this string if file path changes
+    // const imageDir: string = path.join(__dirname, `./..${artFilePath}`); // saving the gameArt path and correcting it
+    // const artCollection = fs.readdirSync(imageDir); // reading the "images" folder and saving the file names in an array.
 
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("Next")
-        .setEmoji("▶")
-        .setStyle("SECONDARY");
-      // .setDisabled(embedNext === artCollection.length - 1);
+    // const embeds: MessageEmbed[] = [];
+    // const files: MessageAttachment[] = [];
+    // for (let i = 0; i < artCollection.length; ++i) {
+    //   files.push(
+    //     new MessageAttachment(path.join(`${imageDir}${artCollection[i]}`))
+    //   );
+    //   embeds.push(
+    //     new MessageEmbed()
+    //       .setTitle("All Arts")
+    //       .setDescription(`Image ${i + 1}/${artCollection.length}`)
+    //       .setImage(`attachment://${artCollection[i]}`)
+    //   );
+    // }
 
-      // create an array of buttons
-      const buttonList = [button1, button2];
 
-      // Create a MessageActionRow and add the button to that row.
-      const row = new MessageActionRow().addComponents(buttonList);
+    // if (interaction.isButton()) {
+    //   // creating Buttons
+    //   const button1 = new MessageButton()
+    //     .setCustomId("previousbtn")
+    //     .setLabel("Previous")
+    //     .setEmoji("◀")
+    //     .setStyle("SECONDARY");
+    //   // .setDisabled(embedNext === 0);
 
-      const buttonSelected = interaction.customId;
+    //   const button2 = new MessageButton()
+    //     .setCustomId("nextbtn")
+    //     .setLabel("Next")
+    //     .setEmoji("▶")
+    //     .setStyle("SECONDARY");
+    //   // .setDisabled(embedNext === artCollection.length - 1);
 
-      switch (buttonSelected) {
-        case "nextbtn":
-          if (embedNext < artCollection.length - 1) {
-            embedNext++;
-            await interaction.deferUpdate();
-            await wait.setTimeout(2500);
-            await interaction.editReply({
-              embeds: [embeds[embedNext]],
-              files: [files[embedNext]],
-              components: [row],
-            });
-            if (embedNext === artCollection.length - 1) {
-              embedNext = -1;
-            }
-          }
-          break;
-        case "previousbtn":
-          if (embedNext > 0) {
-            embedNext--;
-            await interaction.deferUpdate();
-            await wait.setTimeout(2500);
-            await interaction.editReply({
-              embeds: [embeds[embedNext]],
-              files: [files[embedNext]],
-              components: [row],
-            });
-            if (embedNext === 0) {
-              embedNext = artCollection.length;
-            }
-          }
-          break;
-      }
+    //   // create an array of buttons
+    //   const buttonList = [button1, button2];
 
-      // if (
-      //   interaction.customId === "nextbtn" &&
-      //   embedNext < artCollection.length - 1
-      // ) {
-      //   embedNext++;
-      //   console.log(embedNext);
-      //   await interaction.deferUpdate();
-      //   await wait.setTimeout(2500);
-      //   await interaction.editReply({
-      //     embeds: [embeds[embedNext]],
-      //     files: [files[embedNext]],
-      //     components: [row],
-      //   });
-      // }
-      // if (interaction.customId === "previousbtn" && embedNext > 0) {
-      //   embedNext--;
-      //   console.log(embedNext);
-      //   await interaction.deferUpdate();
-      //   await wait.setTimeout(2500);
-      //   await interaction.editReply({
-      //     embeds: [embeds[embedNext]],
-      //     files: [files[embedNext]],
-      //     components: [row],
-      //   });
-      // }
-    }
+    //   // Create a MessageActionRow and add the button to that row.
+    //   const row = new MessageActionRow().addComponents(buttonList);
+
+    //   const buttonSelected = interaction.customId;
+
+    //   switch (buttonSelected) {
+    //     case "nextbtn":
+    //       if (embedNext < artCollection.length - 1) {
+    //         embedNext++;
+    //         await interaction.deferUpdate();
+    //         await wait.setTimeout(2500);
+    //         await interaction.editReply({
+    //           embeds: [embeds[embedNext]],
+    //           files: [files[embedNext]],
+    //           components: [row],
+    //         });
+    //         if (embedNext === artCollection.length - 1) {
+    //           embedNext = -1;
+    //         }
+    //       }
+    //       break;
+    //     case "previousbtn":
+    //       if (embedNext > 0) {
+    //         embedNext--;
+    //         await interaction.deferUpdate();
+    //         await wait.setTimeout(2500);
+    //         await interaction.editReply({
+    //           embeds: [embeds[embedNext]],
+    //           files: [files[embedNext]],
+    //           components: [row],
+    //         });
+    //         if (embedNext === 0) {
+    //           embedNext = artCollection.length;
+    //         }
+    //       }
+    //       break;
+    //   }
+
+    // }
   }
 }
