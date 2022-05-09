@@ -177,8 +177,6 @@ export default class ArtCommand extends BaseCommand {
       );
     }
 
-    console.log(embeds[1])
-
     // //  without options
     // await new Pagination(message.channel as TextChannel, embeds, "page").paginate();
 

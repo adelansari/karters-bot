@@ -1,8 +1,15 @@
-import { Message, MessageEmbed } from "discord.js";
+import {
+  Message,
+  MessageEmbed,
+  MessageActionRow,
+  MessageSelectMenu,
+  TextChannel,
+} from "discord.js";
 import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
 import * as path from "path";
 import * as fs from "fs";
+import { Pagination } from "discordjs-button-embed-pagination";
 
 export default class CharactersCommand extends BaseCommand {
   constructor() {
@@ -47,7 +54,7 @@ export default class CharactersCommand extends BaseCommand {
 
     if (inputForThisCommand === undefined) {
       inputForThisCommand = "spacethefinalfrontier";
-    };
+    }
 
     if (inputForThisCommand !== undefined) {
       let makeItLowerCase = inputForThisCommand.toLowerCase();
@@ -55,20 +62,75 @@ export default class CharactersCommand extends BaseCommand {
         case "spacethefinalfrontier":
           const blankEmbed = new MessageEmbed()
             .setColor("#0099ff")
-            .setTitle('Whoops! Use `.characters help` or `.skins help` to view the characters help menu.')
+            .setTitle(
+              "Whoops! Use `.characters help` or `.skins help` to view the characters help menu."
+            );
           message.channel.send({ embeds: [blankEmbed] });
           break;
 
         case "list":
-          const listCharacterEmbed = new MessageEmbed()
-            .setColor("#0099ff")
-            .setTitle("List of characters: ")
-            .setDescription(
-              characterList
-              .map((i) => `${characterList.indexOf(i) + 1}. ${i}`)
-              .join("\n")
-            )
-          message.channel.send({ embeds: [listCharacterEmbed] });
+          // Create skinUrl out of the raw image in github:
+          const skinUrl: string =
+            "https://raw.githubusercontent.com/adelansari/karters-bot/development/src/commands/misc/assets/skins/";
+          
+          // Correcting file names in PowerShell if necessary:
+          // Get-ChildItem -recurse -name | ForEach-Object { Rename-Item $_ $_.replace(" ","_") }
+          let charEmbeds: MessageEmbed[][] = [];
+          let skinImgUrls: string[][] = [];
+          let skinArrays: string[] = [];
+
+          for (let i = 0; i < characterList.length; ++i) {
+            for (let j = 0; j < skinsList[i].length; ++j) {
+              let skinArrays = skinsList[i].map((data) => data[i]);
+              console.log(skinArrays)
+              // skinImgUrls[i][j] = skinUrl + `${characterList[i]}/${skinArrays[j]}`;
+              // charEmbeds[i].push(
+              //   new MessageEmbed()
+              //     .setTitle("All Characters")
+              //     .setDescription(`Character name ${characterList[i]}`)
+              //     .setImage(skinImgUrls[i][j])
+              // );
+            }
+          }
+          
+          // await new Pagination(message.channel as TextChannel, charEmbeds[1], "page").paginate()
+
+          // characterList.forEach((characters, i) => {
+          //   skinsList[i].forEach((skins, j) => {
+          //     skinImgUrls[i][j] = skinUrl + `${characters}/${skins}`;
+          //     charEmbeds[i].push(
+          //       new MessageEmbed()
+          //         .setTitle("All Characters")
+          //         .setDescription(`Character name ${characters}`)
+          //         .setImage( skinImgUrls[i][j])
+          //     );
+          //   });
+          // });
+
+          // await new Pagination(message.channel as TextChannel, charEmbeds[1], "page").paginate()
+
+          const selectOptions: object[] = [];
+          characterList.forEach((characters, index) => {
+            selectOptions.push({ label: characters, value: index });
+          });
+
+          // const skinRow = new MessageActionRow()
+          // const skinEmbed = new MessageEmbed()
+          // const skinSelect = new MessageSelectMenu()
+          //   .setCustomId("skinSelect")
+          //   .setPlaceholder("Vroom vroom choose a character!")
+          //   .addOptions()
+
+          // // creating an embed with a list of game characters
+          // const listCharacterEmbed = new MessageEmbed()
+          //   .setColor("#0099ff")
+          //   .setTitle("List of characters: ")
+          //   .setDescription(
+          //     characterList
+          //     .map((i) => `${characterList.indexOf(i) + 1}. ${i}`)
+          //     .join("\n")
+          //   )
+          // message.channel.send({ embeds: [listCharacterEmbed] });
           break;
 
         case "random":
@@ -120,11 +182,13 @@ export default class CharactersCommand extends BaseCommand {
           } else {
             const failCharacterEmbed = new MessageEmbed()
               .setColor("#0099ff")
-              .setTitle(`Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`)
+              .setTitle(
+                `Character ${args} does not exist in the list! Character name is case-sensitive (refer to ".characters list").`
+              );
             message.channel.send({ embeds: [failCharacterEmbed] });
           }
           break;
-      };
-    };
+      }
+    }
   }
 }
