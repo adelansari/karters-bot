@@ -6,6 +6,7 @@ import {
   MessageActionRow,
   MessageButton,
   Message,
+  TextChannel,
   User,
 } from "discord.js";
 import wait from "timers/promises";
@@ -15,6 +16,8 @@ import { GlobalLinks } from "../reusableMiscComponents/GlobalLinks";
 import { GlobalMemeDescriptions } from "../reusableMiscComponents/GlobalMemeDescriptions";
 import * as path from "path";
 import * as fs from "fs";
+import { Pagination } from "discordjs-button-embed-pagination";
+import { cwd } from "process";
 
 // initializing embed as zero for ArtCommand embeds
 // let embedNext = 0;
@@ -91,7 +94,7 @@ export default class InteractionCreateEvent extends BaseEvent {
           case GlobalMemeDescriptions.memeFileName07:
             memeDescription = GlobalMemeDescriptions.memeDesc15;
             break;
-        
+
           default:
             break;
         }
@@ -101,9 +104,48 @@ export default class InteractionCreateEvent extends BaseEvent {
           components: [], //keep this list blank so the multi select isn't rendered again
         });
       }
+
+      // /**
+      //  * For CharactersCommand, see CharactersCommand.ts
+      //  */
+
+      if (interaction.customId === "skinSelect") {
+        const skinUrl: string =
+          "https://raw.githubusercontent.com/adelansari/karters-bot/development/src/commands/misc/assets/skins/";
+        const charactersFilePath = "/src/commands/misc/assets/skins/" as string;
+        const imageDir: string = path.join(__dirname, `.${charactersFilePath}`);
+        await interaction.deferUpdate();
+        await wait.setTimeout(4000);
+        let charEmbedGrab = [];
+        let skinFiles: Array<string> = fs.readdirSync(
+          path.join(
+            process.cwd(),
+            `.${charactersFilePath}/${interaction.values[0]}/`
+          )
+        );
+
+        for (let j = 0; j < skinFiles.length; j++) {
+          charEmbedGrab.push(
+            new MessageEmbed()
+              .setTitle(`${interaction.values[0]}`)
+              .setDescription(`Character name ${interaction.values[0]}`)
+              .setImage(skinUrl + `${interaction.values[0]}/${skinFiles[j]}`)
+          );
+        }
+
+        await new Pagination(
+          interaction.channel as TextChannel,
+          charEmbedGrab,
+          "page"
+        ).paginate();
+
+        interaction.deleteReply();
+      }
     }
 
-
+    // /**
+    //  * For CharactersCommand, see CharactersCommand.ts
+    //  */
 
     // /**
     //  * For ArtCommand, see ArtCommand.ts
@@ -128,7 +170,6 @@ export default class InteractionCreateEvent extends BaseEvent {
     //       .setImage(`attachment://${artCollection[i]}`)
     //   );
     // }
-
 
     // if (interaction.isButton()) {
     //   // creating Buttons
