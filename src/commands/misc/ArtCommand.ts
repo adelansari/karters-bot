@@ -2,7 +2,6 @@ import {
   Message,
   MessageEmbed,
   MessageAttachment,
-  User,
   TextChannel,
   MessageButton,
   MessageActionRow,
@@ -11,6 +10,8 @@ import BaseCommand from "../../utils/structures/BaseCommand";
 import DiscordClient from "../../client/client";
 import * as path from "path";
 import * as fs from "fs";
+// using npm package https://www.npmjs.com/package/discordjs-button-embed-pagination
+import { Pagination } from "discordjs-button-embed-pagination";
 
 /**
  * @ArtCommand - Display art related to The Karters and send
@@ -52,8 +53,7 @@ export default class ArtCommand extends BaseCommand {
 
     // console.log(artCollection[decision]);
 
-
-      switch (artCollection[decision]) {
+    switch (artCollection[decision]) {
       /**
        * Update this switch so that each file has its own message with embed.
        */
@@ -87,7 +87,7 @@ export default class ArtCommand extends BaseCommand {
         message.channel.send({ embeds: [artEmbed03] });
         break;
 
-      case "Molten Mile-min.jpg":
+      case "molten_mile.jpg":
         const artEmbed04 = new MessageEmbed()
           .setTitle("Random Art")
           .setColor("DARK_AQUA")
@@ -149,97 +149,86 @@ export default class ArtCommand extends BaseCommand {
         break;
     }
 
-    message.channel.send({
+    await message.channel.send({
       files: [`${__dirname}${artFilePath}${artCollection[decision]}`],
     });
 
-
-
     // // Making pages out of all images in gameArt directory
 
-    // // NOTE FROM ProBoz: Uncomment this code below to continue working on it, this should not
-    // // be active during production mode. To uncomment this whole section, highlight all the source
-    // // code, on windows: press CTRL + /, on mac: press control + /
+    const artUrl = "https://raw.githubusercontent.com/adelansari/karters-bot/development/src/commands/misc/assets/gameArt/";
 
     const embeds: MessageEmbed[] = [];
-    const pages = {} as { [key:string]: number }  // { userId: pageNumber }
-    // const channel = {} as TextChannel;
-    // const user = {} as User;
     const files: MessageAttachment[] = [];
     for (let i = 0; i < artCollection.length; ++i) {
-      files.push(
-        new MessageAttachment(`${__dirname}${artFilePath}${artCollection[i]}`)
-      );
+      // Create message attachment out of local images:
+      // files.push(new MessageAttachment(`${__dirname}${artFilePath}${artCollection[i]}`));
+
+      // Create imgUrls out of the raw image in github:
+      const imgUrls = artUrl + artCollection[i]
+
       // console.log(`${__dirname}${artFilePath}${artCollection[i]}`);
       embeds.push(
         new MessageEmbed()
           .setTitle("All Arts")
-          .setDescription(`Image ${i + 1}/${artCollection.length}`)
-          .setImage(`attachment://${artCollection[i]}`)
+          // .setDescription(`Image ${i + 1}/${artCollection.length}`)
+          .setDescription(artCollection[i])
+          // .setImage(`attachment://${artCollection[i]}`)  // For local image attachments
+          .setImage(imgUrls)
       );
     }
 
-    // creating Buttons
-    const button1 = new MessageButton()
-      .setCustomId("previousbtn")
-      .setLabel("Previous")
-      .setEmoji('◀')
-      .setStyle('SECONDARY')
+    // //  without options
+    // await new Pagination(message.channel as TextChannel, embeds, "page").paginate();
 
-    const button2 = new MessageButton()
-      .setCustomId("nextbtn")
-      .setLabel("Next")
-      .setEmoji('▶')
-      .setStyle('SECONDARY')
+    // with options
+    await new Pagination(message.channel as TextChannel, embeds, "page", 60000, [
+      {
+          style: "SECONDARY",
+          label: "First",
+          emoji: "⏮️"
+      }, {
+          style: "SECONDARY",
+          label: "Prev",
+          emoji: "◀️"
+      }, {
+          style: "DANGER",
+          label: "Stop",
+          emoji: "⏹️"
+      }, {
+          style: "SECONDARY",
+          label: "Next",
+          emoji: "▶️"
+      }, {
+          style: "SECONDARY",
+          label: "Last",
+          emoji: "⏭️"
+      },
 
-    // create an array of buttons
-    const buttonList = [button1, button2];
+  ]).paginate();
 
-    // Create a MessageActionRow and add the button to that row.
-    const row = new MessageActionRow().addComponents(buttonList);
-
-
-    // sending the first embed along with the buttons
-    const embedMessage = await message.reply({ embeds: [embeds[0]], files: [files[0]], components: [row] });
-
-
-
-    // const getRow = (id:string) => {
-    //   const row = new MessageActionRow()
-    //   row.addComponents(
-    //     new MessageButton()
-    //     .setCustomId('previousbtn')
-    //     .setStyle('SECONDARY')
-    //     .setLabel("Previous")
-    //     .setEmoji('◀')
-    //     .setDisabled(pages[id] === 0)
-    //   )
-    //   row.addComponents(
-    //     new MessageButton()
-    //     .setCustomId('nextbtn')
-    //     .setStyle('SECONDARY')
-    //     .setLabel("Next")
-    //     .setEmoji('▶')
-    //     .setDisabled(pages[id] === embeds.length - 1)
-    //   )
-
-    //   return row
-    // }
-
-
-
-
-    // message.channel.send({ embeds: embeds, files: files });
-
-    // pagination({
-    //   embeds: embeds,
-    //   channel: channel,
-    //   author: user,
-    //   time: 10000,
-    // });
-
-    // const embeds: MessageEmbed[] = [];
     
+    // ++++++++++++++++++++++ An old working method +++++++++++++++++++++++++
+    // ++++++++++++++++++++++\\+++++++++++++++++++//+++++++++++++++++++++++++
+    // // creating Buttons
+    // const button1 = new MessageButton()
+    //   .setCustomId("previousbtn")
+    //   .setLabel("Previous")
+    //   .setEmoji('◀')
+    //   .setStyle('SECONDARY')
 
+    // const button2 = new MessageButton()
+    //   .setCustomId("nextbtn")
+    //   .setLabel("Next")
+    //   .setEmoji('▶')
+    //   .setStyle('SECONDARY')
+
+    // // create an array of buttons
+    // const buttonList = [button1, button2];
+
+    // // Create a MessageActionRow and add the button to that row.
+    // const row = new MessageActionRow().addComponents(buttonList);
+
+    // // sending the first embed along with the buttons
+    // const embedMessage = await message.reply({ embeds: [embeds[0]], files: [files[0]], components: [row] });
   }
 }
