@@ -21,3 +21,5 @@ Run `npm install` after cloning repo.
 Make sure you check `index.ts` file in the root of src for which method of bot token you are using to login.
 
 To run the bot, type `npm run dev` or `yarn dev`.
+
+See the reusableMiscComponents folder directory for all bot data being globally used across different commands.
