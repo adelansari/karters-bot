@@ -9,12 +9,14 @@
  */
 
 type GLOBAL_LINKS = {
+    pumaPFPUrl: string,
     memesUrl: string,
     memesGroupUrl: string,
     artUrl: string,
 };
 
 export const GlobalLinks: GLOBAL_LINKS = {
+    pumaPFPUrl: "/assets/other/PumaPFP.png",
     memesUrl: "/assets/memes/",
     memesGroupUrl: "/commands/misc/assets/memes/",
     artUrl: "/commands/misc/assets/gameArt/",
