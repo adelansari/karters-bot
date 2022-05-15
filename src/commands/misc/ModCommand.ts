@@ -91,9 +91,14 @@ export default class ModCommand extends BaseCommand {
               .replace(">", "");
 
             // Sending a message to the specified mentioned channel:
-            (client.channels.cache.get(mentionedChannelID) as TextChannel).send(
-              userSentMessage
-            );
+            try {
+              (client.channels.cache.get(mentionedChannelID) as TextChannel).send(
+                userSentMessage
+              );
+            } catch (error) {
+              message.channel.send("Can't send the message in the specified channel.")
+            }
+            
 
             break;
           case "embed":
@@ -141,10 +146,16 @@ export default class ModCommand extends BaseCommand {
               .replace(">", "");
 
             // Sending a message to the specified mentioned channel:
-            (client.channels.cache.get(embedChannelID) as TextChannel).send({
-              content: embed_input[0],
-              embeds: [userEmbed],
-            });
+            try {
+              (client.channels.cache.get(embedChannelID) as TextChannel).send({
+                content: embed_input[0],
+                embeds: [userEmbed],
+              });
+
+            } catch (error) {
+              message.channel.send("Can't send the message in the specified channel.")
+            }
+            
 
             break;
         }
