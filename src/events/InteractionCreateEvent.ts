@@ -136,7 +136,8 @@ export default class InteractionCreateEvent extends BaseEvent {
         await new Pagination(
           interaction.channel as TextChannel,
           charEmbedGrab,
-          "page"
+          "page",
+          300000
         ).paginate();
 
         interaction.deleteReply();
