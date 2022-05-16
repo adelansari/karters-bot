@@ -181,7 +181,7 @@ export default class ArtCommand extends BaseCommand {
     // await new Pagination(message.channel as TextChannel, embeds, "page").paginate();
 
     // with options
-    await new Pagination(message.channel as TextChannel, embeds, "page", 60000, [
+    await new Pagination(message.channel as TextChannel, embeds, "page", 600000, [
       {
           style: "SECONDARY",
           label: "First",
