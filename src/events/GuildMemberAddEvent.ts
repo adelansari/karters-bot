@@ -64,6 +64,8 @@ export default class GuildMemberAddEvent extends BaseEvent {
       if (message.content.toUpperCase() === captcha.text) {
         return true;
       } else {
+        console.log(captcha.text)
+        console.log(message.content.toUpperCase())
         verifychannel.send("Wrong captcha! Please try again.");
         return false;
       }
