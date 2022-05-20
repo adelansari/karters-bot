@@ -33,7 +33,9 @@ export default class GuildMemberAddEvent extends BaseEvent {
     );
 
     const captchaEmbed = new MessageEmbed()
-      .setDescription('Please complete this captcha to get a "**verified**" role:')
+      .setDescription(
+        'Please complete this captcha to get a "**verified**" role:'
+      )
       .setImage("attachment://captcha.png");
 
     // To send the captcha message to 'verify' channel
@@ -42,7 +44,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
     // const verifychannel = client.channels.cache.get(channelId) as TextChannel; // Finding the "verify" channel
 
     const guildObject = member.guild as Guild; // Finding the member guild
-    const verifychannel: any|undefined= guildObject.channels.cache.find(
+    const verifychannel: any | undefined = guildObject.channels.cache.find(
       (channel: { name: string }) => channel.name === "verify"
     ); // Finding the 'verify' by name
 
@@ -64,8 +66,6 @@ export default class GuildMemberAddEvent extends BaseEvent {
       if (message.content.toUpperCase() === captcha.text) {
         return true;
       } else {
-        console.log(captcha.text)
-        console.log(message.content.toUpperCase())
         verifychannel.send("Wrong captcha! Please try again.");
         return false;
       }
@@ -80,7 +80,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
       });
       if (response) {
         // when verified
-        const memberrole: any|undefined = guildObject.roles.cache.find(
+        const memberrole: any | undefined = guildObject.roles.cache.find(
           (role: { name: string }) => role.name === "racer"
         ); // Searching for the role 'racer' in the guild
         await member.roles.add(memberrole.id); // adding the role 'racer' to the member
@@ -88,6 +88,7 @@ export default class GuildMemberAddEvent extends BaseEvent {
       }
     } catch (err) {
       // no time and not verified
+
       await member.send(
         'You have failed to complete the captcha on time. Please try again using ".verify" command.'
       );
