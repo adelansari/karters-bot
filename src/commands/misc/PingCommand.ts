@@ -12,6 +12,6 @@ export default class PingCommand extends BaseCommand {
   }
 
   async run(client: DiscordClient, message: Message, args: Array<string>) {
-    message.channel.send(`${client.ws.ping} pong!`);
+    message.channel.send({ content:`${client.ws.ping} pong!`});
   }
 }
