@@ -11,8 +11,8 @@
 
 export const CommandPermissionList: string[] = [
     ////////////////////TESTING LIST/////////////////////////
-    //guild: The Karters Bot Testing
-    `974130129196417034`, //testing-disabled-perms
+    //guild: Building Bots group
+    `979944580495593472`, //testing-disabled-perms
 
     ///////////////////PUBLIC LIST///////////////////////////
     //guild: The Karters
