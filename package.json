@@ -23,6 +23,7 @@
     "yarn": "1.22.17"
   },
   "scripts": {
-    "start": "nodemon -x ts-node ./src/index.ts"
+    "start": "nodemon -x ts-node ./src/index.ts",
+    "proboz": "npx nodemon ./src/index.ts"
   }
 }
